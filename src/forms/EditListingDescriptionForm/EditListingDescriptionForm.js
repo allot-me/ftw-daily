@@ -116,13 +116,6 @@ const EditListingDescriptionFormComponent = props => (
             intl={intl}
           />
 
-          {/* <CustomCategorySelectFieldMaybe
-            id="category"
-            name="category"
-            categories={categories}
-            intl={intl}
-          /> */}
-
           <Button
             className={css.submitButton}
             type="submit"
