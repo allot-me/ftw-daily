@@ -4,17 +4,17 @@ import { FieldSelect } from '../../components';
 
 import css from './EditListingDescriptionForm.css';
 
-const CustomCategorySelectFieldMaybe = props => {
+const CustomCategorySelectHowAccessed = props => {
   const { name, id, categories, intl } = props;
   const categoryLabel = intl.formatMessage({
-    id: 'EditListingDescriptionForm.categoryLabel',
+    id: 'EditListingDescriptionForm.categoryHowAccessedLabel',
   });
   const categoryPlaceholder = intl.formatMessage({
-    id: 'EditListingDescriptionForm.categoryPlaceholder',
+    id: 'EditListingDescriptionForm.categoryHowAccessedPlaceholder',
   });
   const categoryRequired = required(
     intl.formatMessage({
-      id: 'EditListingDescriptionForm.categoryRequired',
+      id: 'EditListingDescriptionForm.categoryHowAccessedRequired',
     })
   );
   return categories ? (
@@ -37,4 +37,4 @@ const CustomCategorySelectFieldMaybe = props => {
   ) : null;
 };
 
-export default CustomCategorySelectFieldMaybe;
+export default CustomCategorySelectHowAccessed;

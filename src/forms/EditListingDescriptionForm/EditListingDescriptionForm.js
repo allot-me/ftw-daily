@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { propTypes } from '../../util/types';
 import { maxLength, required, composeValidators } from '../../util/validators';
 import { Form, Button, FieldTextInput } from '../../components';
-import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
+import CustomCategorySelectHowAccessed from './CustomCategorySelectHowAccessed';
 
 import css from './EditListingDescriptionForm.css';
 
@@ -109,12 +109,19 @@ const EditListingDescriptionFormComponent = props => (
             validate={composeValidators(required(descriptionRequiredMessage))}
           />
 
-          <CustomCategorySelectFieldMaybe
+          <CustomCategorySelectHowAccessed
             id="category"
             name="category"
             categories={categories}
             intl={intl}
           />
+
+          {/* <CustomCategorySelectFieldMaybe
+            id="category"
+            name="category"
+            categories={categories}
+            intl={intl}
+          /> */}
 
           <Button
             className={css.submitButton}
