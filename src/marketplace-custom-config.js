@@ -74,8 +74,8 @@ export const filters = [
     config: {},
   },
   {
-    id: 'category',
-    label: 'Category',
+    id: 'how_accessed',
+    label: 'How space accessed',
     type: 'SelectSingleFilter',
     group: 'secondary',
     queryParamNames: ['pub_category'],
@@ -85,10 +85,10 @@ export const filters = [
       // Note: label is not added through the translation files
       // to make filter customizations a bit easier.
       options: [
-        { key: 'smoke', label: 'Smoke' },
-        { key: 'electric', label: 'Electric' },
-        { key: 'wood', label: 'Wood' },
-        { key: 'other', label: 'Other' },
+        { key: 'private_gate', label: "Private Gate" },
+        { key: "let_them_in", label: "I'll be there to let them in" },
+        { key: 'street_access', label: "Street Access (front gardens)" },
+        { key: 'lockbox', label: 'Lockbox (following trial period)' },
       ],
     },
   },
