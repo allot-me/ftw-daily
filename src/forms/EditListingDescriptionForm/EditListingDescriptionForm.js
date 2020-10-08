@@ -112,16 +112,16 @@ const EditListingDescriptionFormComponent = props => (
           />
 
           <CustomCategorySelectSpaceType
-            id="category"
-            name="category"
+            id="space_type"
+            name="space_type"
             categories={spaceType}
             intl={intl}
           />
 
 
           <CustomCategorySelectHowAccessed
-            id="category"
-            name="category"
+            id="how_accessed"
+            name="how_accessed"
             categories={howAccessed}
             intl={intl}
           />
