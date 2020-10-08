@@ -128,36 +128,20 @@ export const filters = [
       // to make filter customizations a bit easier.
       options: [
         {
-          key: 'towels',
-          label: 'Towels',
+          key: 'big_tool',
+          label: 'Big Tool',
         },
         {
-          key: 'bathroom',
-          label: 'Bathroom',
+          key: 'little_tool',
+          label: 'Little Tool',
         },
         {
-          key: 'swimming_pool',
-          label: 'Swimming pool',
+          key: 'sprinkler',
+          label: 'Sprinkler',
         },
         {
-          key: 'own_drinks',
-          label: 'Own drinks allowed',
-        },
-        {
-          key: 'jacuzzi',
-          label: 'Jacuzzi',
-        },
-        {
-          key: 'audiovisual_entertainment',
-          label: 'Audiovisual entertainment',
-        },
-        {
-          key: 'barbeque',
-          label: 'Barbeque',
-        },
-        {
-          key: 'own_food_allowed',
-          label: 'Own food allowed',
+          key: 'patio',
+          label: 'Patio',
         },
       ],
     },
