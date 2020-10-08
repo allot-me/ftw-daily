@@ -18,7 +18,7 @@ const EditListingDescriptionFormComponent = props => (
     {...props}
     render={formRenderProps => {
       const {
-        categories,
+        howAccessed,
         className,
         disabled,
         ready,
@@ -112,7 +112,7 @@ const EditListingDescriptionFormComponent = props => (
           <CustomCategorySelectHowAccessed
             id="category"
             name="category"
-            categories={categories}
+            categories={howAccessed}
             intl={intl}
           />
 
