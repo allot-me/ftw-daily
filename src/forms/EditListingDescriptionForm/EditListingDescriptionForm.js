@@ -8,6 +8,7 @@ import { propTypes } from '../../util/types';
 import { maxLength, required, composeValidators } from '../../util/validators';
 import { Form, Button, FieldTextInput } from '../../components';
 import CustomCategorySelectHowAccessed from './CustomCategorySelectHowAccessed';
+import CustomCategorySelectSpaceType from './CustomCategorySelectSpaceType';
 
 import css from './EditListingDescriptionForm.css';
 
@@ -18,6 +19,7 @@ const EditListingDescriptionFormComponent = props => (
     {...props}
     render={formRenderProps => {
       const {
+        spaceType,
         howAccessed,
         className,
         disabled,
@@ -108,6 +110,14 @@ const EditListingDescriptionFormComponent = props => (
             placeholder={descriptionPlaceholderMessage}
             validate={composeValidators(required(descriptionRequiredMessage))}
           />
+
+          <CustomCategorySelectSpaceType
+            id="category"
+            name="category"
+            categories={spaceType}
+            intl={intl}
+          />
+
 
           <CustomCategorySelectHowAccessed
             id="category"

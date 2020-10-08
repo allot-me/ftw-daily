@@ -93,6 +93,25 @@ export const filters = [
     },
   },
   {
+    id: 'space_type',
+    label: 'Space Type',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamNames: ['pub_category'],
+    config: {
+      // "key" is the option you see in Flex Console.
+      // "label" is set here for the UI only.
+      // Note: label is not added through the translation files
+      // to make filter customizations a bit easier.
+      options: [
+        { key: 'front_garden', label: "Front Garden" },
+        { key: "back_garden", label: "Back Garden" },
+        { key: 'commercial_space', label: "Commercial Space" },
+        { key: 'other', label: 'Other' },
+      ],
+    },
+  },
+  {
     id: 'amenities',
     label: 'Amenities',
     type: 'SelectMultipleFilter',

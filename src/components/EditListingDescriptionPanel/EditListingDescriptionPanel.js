@@ -41,6 +41,7 @@ const EditListingDescriptionPanel = props => {
   );
 
   const howAccessedOptions = findOptionsForSelectFilter('how_accessed', config.custom.filters);
+  const spaceTypeOptions = findOptionsForSelectFilter('space_type', config.custom.filters);
   return (
     <div className={classes}>
       <h1 className={css.title}>{panelTitle}</h1>
@@ -65,6 +66,7 @@ const EditListingDescriptionPanel = props => {
         updateInProgress={updateInProgress}
         fetchErrors={errors}
         howAccessed={howAccessedOptions}
+        spaceType={spaceTypeOptions}
       />
     </div>
   );
