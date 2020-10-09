@@ -140,6 +140,7 @@ export { default as SearchMap } from './SearchMap/SearchMap';
 export { default as SearchMapGroupLabel } from './SearchMapGroupLabel/SearchMapGroupLabel';
 export { default as SearchMapInfoCard } from './SearchMapInfoCard/SearchMapInfoCard';
 export { default as SearchMapPriceLabel } from './SearchMapPriceLabel/SearchMapPriceLabel';
+export { default as SearchMapAllotMeLabel } from './SearchMapAllotMeLabel/SearchMapAllotMeLabel';
 export { default as SearchResultsPanel } from './SearchResultsPanel/SearchResultsPanel';
 export { default as SelectMultipleFilter } from './SelectMultipleFilter/SelectMultipleFilter';
 export { default as SelectSingleFilter } from './SelectSingleFilter/SelectSingleFilter';

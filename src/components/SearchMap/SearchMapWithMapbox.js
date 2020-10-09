@@ -9,7 +9,7 @@ import { parse } from '../../util/urlHelpers';
 import { propTypes } from '../../util/types';
 import { ensureListing } from '../../util/data';
 import { sdkBoundsToFixedCoordinates, hasSameSDKBounds } from '../../util/maps';
-import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from '../../components';
+import { SearchMapInfoCard, SearchMapAllotMeLabel, SearchMapGroupLabel } from '../../components';
 
 import { groupedByCoordinates, reducedToArray } from './SearchMap.helpers.js';
 import css from './SearchMapWithMapbox.css';
@@ -471,7 +471,7 @@ class SearchMapWithMapbox extends Component {
           // Create component portals for correct marker containers
           if (isMapReadyForMarkers && m.type === 'price') {
             return ReactDOM.createPortal(
-              <SearchMapPriceLabel {...m.componentProps} />,
+              <SearchMapAllotMeLabel {...m.componentProps} />,
               portalDOMContainer
             );
           } else if (isMapReadyForMarkers && m.type === 'group') {
