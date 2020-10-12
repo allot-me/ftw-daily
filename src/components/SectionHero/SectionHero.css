@@ -97,6 +97,10 @@
   }
 }
 
+.heroButtonCols {
+  display: flex;
+}
+
 .heroButton {
   @apply --marketplaceButtonStyles;
   @apply --SectionHero_animation;
@@ -106,5 +110,7 @@
   @media (--viewportMedium) {
     display: block;
     width: 260px;
-  }
+  };
+
+  margin-right: 30px;
 }

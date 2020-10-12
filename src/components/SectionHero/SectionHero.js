@@ -20,6 +20,7 @@ const SectionHero = props => {
         <h2 className={css.heroSubTitle}>
           <FormattedMessage id="SectionHero.subTitle" />
         </h2>
+        <div className={css.heroButtonCols}>
         <NamedLink
           name="SearchPage"
           to={{
@@ -30,6 +31,13 @@ const SectionHero = props => {
         >
           <FormattedMessage id="SectionHero.browseButton" />
         </NamedLink>
+        <NamedLink
+          name="NewListingPage"
+          className={css.heroButton}
+        >
+          <FormattedMessage id="SectionHero.newButton" />
+        </NamedLink>
+        </div>
       </div>
     </div>
   );
