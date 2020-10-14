@@ -6,6 +6,7 @@ import { ensureOwnListing } from '../../util/data';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { ListingLink } from '../../components';
 import { EditListingAvailabilityForm } from '../../forms';
+import { EditListingAvailableFromForm } from '../../forms';
 
 import css from './EditListingAvailabilityPanel.css';
 
@@ -54,6 +55,7 @@ const EditListingAvailabilityPanel = props => {
           <FormattedMessage id="EditListingAvailabilityPanel.createListingTitle" />
         )}
       </h1>
+      <EditListingAvailableFromForm />
       <EditListingAvailabilityForm
         className={css.form}
         listingId={currentListing.id}
