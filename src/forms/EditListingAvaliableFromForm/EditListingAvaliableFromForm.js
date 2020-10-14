@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Button } from '../../components';
 import { required, bookingDateRequired, composeValidators } from '../../util/validators';
 import { createTimeSlots } from '../../util/test-data';
-import FieldDateInput from './FieldDateInput';
+import FieldDateInput from '../../components/FieldDateInput/FieldDateInput';
 import { compose } from 'redux';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 
