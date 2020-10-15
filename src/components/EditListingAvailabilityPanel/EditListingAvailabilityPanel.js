@@ -1,11 +1,11 @@
 import React from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
+import moment from 'moment';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
 import { ensureOwnListing } from '../../util/data';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { ListingLink } from '../../components';
-import { EditListingAvailabilityForm } from '../../forms';
 import { EditListingAvailableFromForm } from '../../forms';
 
 import css from './EditListingAvailabilityPanel.css';
@@ -42,6 +42,17 @@ const EditListingAvailabilityPanel = props => {
     ],
   };
   const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
+  const dateInputProps = {
+    name: 'bookingDate',
+    placeholderText: moment().format('MMMM D, YYYY'),
+    useMobileMargins: false,
+    id: 'AvailabilityFrom.bookingDate',
+    label: 'Select Date',
+    format: (value) => value,
+    validate: null,
+    onBlur: () => console.log('onBlur called'),
+    onFocus: () => console.log('onBlur called')
+  }
 
   return (
     <div className={classes}>
@@ -55,7 +66,12 @@ const EditListingAvailabilityPanel = props => {
           <FormattedMessage id="EditListingAvailabilityPanel.createListingTitle" />
         )}
       </h1>
-      <EditListingAvailableFromForm />
+      <EditListingAvailableFromForm 
+        submitButtonText={submitButtonText}
+        dateInputProps={dateInputProps}
+        onSubmit={onSubmit}
+        onChange={()=>console.log('hello')}
+      />
     </div>
   );
 };
@@ -69,10 +85,8 @@ EditListingAvailabilityPanel.defaultProps = {
 EditListingAvailabilityPanel.propTypes = {
   className: string,
   rootClassName: string,
-
   // We cannot use propTypes.listing since the listing might be a draft.
   listing: object,
-
   availability: shape({
     calendar: object.isRequired,
     onFetchAvailabilityExceptions: func.isRequired,

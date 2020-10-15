@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
+import { bool, func, object, string, shape } from 'prop-types';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import moment from 'moment';
 import { Button } from '../../components';
@@ -35,6 +36,7 @@ export class EditListingAvailableFromForm extends Component {
                     submitting,
                     dateInputProps,
                     values,
+                    submitButtonText
                 } = fieldRenderProps;
                 const submitDisabled = pristine || submitting;
                 if (values && values.bookingDates) {
@@ -49,9 +51,10 @@ export class EditListingAvailableFromForm extends Component {
                         handleSubmit(e);
                     }}
                     >
+                    <FormSpy onChange={onChange} />
                     <FieldDateInput {...dateInputProps} />
                     <Button type="submit" disabled={submitDisabled} style={{ marginTop: '24px' }}>
-                        Select
+                        {submitButtonText}
                     </Button>
                     </form>
                 );
@@ -61,29 +64,21 @@ export class EditListingAvailableFromForm extends Component {
     }
 }
 
-EditListingAvailableFromForm.defaultProps = {
-    style: { marginBottom: '140px' },
-    dateInputProps: {
-      name: 'bookingDate',
-      useMobileMargins: false,
-      id: `EmptyDateInputForm.bookingDate`,
-      label: 'Date',
-      placeholderText: moment().format('ddd, MMMM D'),
-      format: identity,
-      validate: composeValidators(required('Required'), bookingDateRequired('Date is not valid')),
-      onBlur: () => console.log('onBlur called from DateInput props.'),
-      onFocus: () => console.log('onFocus called from DateInput props.'),
-    },
-    onChange: formState => {
-      const { date } = formState.values;
-      if (date) {
-        console.log('Changed to', moment(date).format('L'));
-      }
-    },
-    onSubmit: values => {
-      console.log('Submitting a form with values:', values);
-    },
-
+EditListingAvailableFromForm.propTypes= {
+    style: object,
+    dateInputProps: shape({
+      name: string,
+      useMobileMargins: bool,
+      id: string,
+      label: string,
+      placeholderText: string,
+      format: func,
+      validate: func,
+      onBlur: func,
+      onFocus: func,
+    }),
+    onChange: func,
+    onSubmit: func 
 };
 
 export default compose(injectIntl)(EditListingAvailableFromForm)
