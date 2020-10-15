@@ -71,14 +71,14 @@ const EditListingAvailabilityPanel = props => {
     onFocus: () => console.log('onBlur called')
   }
   const submitAvailability = (value) => {
+    onSubmit({availabilityPlan})
     const start = momentToUTCDate(TODAY_MOMENT)
     const end = momentToUTCDate(END_OF_BOOKING_RANGE_MOMENT)
-    console.log(currentListing.id)
-    const test = availability.onFetchAvailabilityExceptions(currentListing.id, start, end)
-    test.then(
-      response => console.log(response)
-    )
-    onSubmit({availabilityPlan})
+    const listingId = currentListing.id
+    const seats = 0
+    availability.onCreateAvailabilityException({listingId, start, end, seats})
+    availability.onFetchAvailabilityExceptions({listingId, start, end})
+    console.log(availability.calendar)
   }
 
 
