@@ -10,17 +10,6 @@ import FieldDateInput from '../../components/FieldDateInput/FieldDateInput';
 import { compose } from 'redux';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 
-const identity = v => v;
-
-const createAvailableTimeSlots = (dayCount, availableDayCount) => {
-  const slots = createTimeSlots(new Date(), dayCount);
-  const availableSlotIndices = Array.from({ length: availableDayCount }, () =>
-    Math.floor(Math.random() * dayCount)
-  );
-
-  return availableSlotIndices.sort().map(i => slots[i]);
-};
-
 export class EditListingAvailableFromForm extends Component {
     render() {
         return (

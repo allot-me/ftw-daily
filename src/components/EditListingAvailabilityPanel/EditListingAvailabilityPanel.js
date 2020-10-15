@@ -18,7 +18,6 @@ const EditListingAvailabilityPanel = props => {
     availability,
     disabled,
     ready,
-    onSubmit,
     onChange,
     submitButtonText,
     panelUpdated,
@@ -53,6 +52,7 @@ const EditListingAvailabilityPanel = props => {
     onBlur: () => console.log('onBlur called'),
     onFocus: () => console.log('onBlur called')
   }
+  const onSubmit = () => {console.log('this is called when we press submit')}
 
   return (
     <div className={classes}>
@@ -70,7 +70,7 @@ const EditListingAvailabilityPanel = props => {
         submitButtonText={submitButtonText}
         dateInputProps={dateInputProps}
         onSubmit={onSubmit}
-        onChange={()=>console.log('hello')}
+        onChange={()=>console.log('onChange called')}
       />
     </div>
   );
