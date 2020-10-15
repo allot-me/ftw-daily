@@ -15,7 +15,7 @@ const EditListingAvailabilityPanel = props => {
     className,
     rootClassName,
     listing,
-    //onSubmit,
+    onSubmit,
     availability,
     disabled,
     ready,
@@ -53,10 +53,6 @@ const EditListingAvailabilityPanel = props => {
     onBlur: () => console.log('onBlur called'),
     onFocus: () => console.log('onBlur called')
   }
-  const onSubmit = () => {
-    console.log('this is called when we press submit')
-    console.log(availability)
-  }
 
   return (
     <div className={classes}>
@@ -73,8 +69,9 @@ const EditListingAvailabilityPanel = props => {
       <EditListingAvailableFromForm 
         submitButtonText={submitButtonText}
         dateInputProps={dateInputProps}
-        onSubmit={onSubmit}
-        onChange={()=>console.log('onChange called')}
+        // only save the availabilityPlan on onSubmit, use onChange to save availability exceptions
+        onSubmit={() => {onSubmit({availabilityPlan})}}
+        onChange={(newValue)=>console.log(newValue)}
       />
     </div>
   );
