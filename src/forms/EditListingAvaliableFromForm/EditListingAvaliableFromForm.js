@@ -10,7 +10,30 @@ import FieldDateInput from '../../components/FieldDateInput/FieldDateInput';
 import { compose } from 'redux';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 
+const momentToUTCDate = dateMoment =>
+  dateMoment
+    .clone()
+    .utc()
+    .add(dateMoment.utcOffset(), 'minutes')
+    .toDate();
+
+const MAX_BOOKINGS_RANGE = 180;
+const TODAY_MOMENT = moment().startOf('day');
+const MAX_AVAILABILITY_EXCEPTIONS_RANGE = 365;
+const END_OF_RANGE_MOMENT = TODAY_MOMENT.clone()
+  .add(MAX_AVAILABILITY_EXCEPTIONS_RANGE - 1, 'days')
+  .startOf('day');
+const END_OF_BOOKING_RANGE_MOMENT = TODAY_MOMENT.clone()
+  .add(MAX_BOOKINGS_RANGE - 1, 'days')
+  .startOf('day');
+
 export class EditListingAvailableFromForm extends Component {
+    componentDidMount(){
+    let {availability, listingId} = this.props
+    const start = momentToUTCDate(TODAY_MOMENT)
+    const end = momentToUTCDate(END_OF_BOOKING_RANGE_MOMENT)
+    availability.onFetchAvailabilityExceptions({listingId, start, end})
+    }
     render() {
         return (
             <FinalForm

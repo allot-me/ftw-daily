@@ -72,12 +72,6 @@ const EditListingAvailabilityPanel = props => {
   }
   const submitAvailability = (value) => {
     onSubmit({availabilityPlan})
-    const start = momentToUTCDate(TODAY_MOMENT)
-    const end = momentToUTCDate(END_OF_BOOKING_RANGE_MOMENT)
-    const listingId = currentListing.id
-    const seats = 0
-    availability.onCreateAvailabilityException({listingId, start, end, seats})
-    availability.onFetchAvailabilityExceptions({listingId, start, end})
     console.log(availability.calendar)
   }
 
@@ -99,6 +93,8 @@ const EditListingAvailabilityPanel = props => {
         dateInputProps={dateInputProps}
         onSubmit={submitAvailability}
         onChange={()=>console.log('onChange called')}
+        availability={availability}
+        listingId={currentListing.id}
       />
     </div>
   );
