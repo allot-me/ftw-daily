@@ -10,6 +10,23 @@ import { EditListingAvailableFromForm } from '../../forms';
 
 import css from './EditListingAvailabilityPanel.css';
 
+const momentToUTCDate = dateMoment =>
+  dateMoment
+    .clone()
+    .utc()
+    .add(dateMoment.utcOffset(), 'minutes')
+    .toDate();
+
+const MAX_BOOKINGS_RANGE = 180;
+const TODAY_MOMENT = moment().startOf('day');
+const MAX_AVAILABILITY_EXCEPTIONS_RANGE = 365;
+const END_OF_RANGE_MOMENT = TODAY_MOMENT.clone()
+  .add(MAX_AVAILABILITY_EXCEPTIONS_RANGE - 1, 'days')
+  .startOf('day');
+const END_OF_BOOKING_RANGE_MOMENT = TODAY_MOMENT.clone()
+  .add(MAX_BOOKINGS_RANGE - 1, 'days')
+  .startOf('day');
+
 const EditListingAvailabilityPanel = props => {
   const {
     className,
@@ -53,6 +70,17 @@ const EditListingAvailabilityPanel = props => {
     onBlur: () => console.log('onBlur called'),
     onFocus: () => console.log('onBlur called')
   }
+  const submitAvailability = (value) => {
+    const start = momentToUTCDate(TODAY_MOMENT)
+    const end = momentToUTCDate(END_OF_BOOKING_RANGE_MOMENT)
+    console.log(currentListing.id)
+    const test = availability.onFetchAvailabilityExceptions(currentListing.id, start, end)
+    test.then(
+      response => console.log(response)
+    )
+    onSubmit({availabilityPlan})
+  }
+
 
   return (
     <div className={classes}>
@@ -69,9 +97,8 @@ const EditListingAvailabilityPanel = props => {
       <EditListingAvailableFromForm 
         submitButtonText={submitButtonText}
         dateInputProps={dateInputProps}
-        // only save the availabilityPlan on onSubmit, use onChange to save availability exceptions
-        onSubmit={() => {onSubmit({availabilityPlan})}}
-        onChange={(newValue)=>console.log(newValue)}
+        onSubmit={submitAvailability}
+        onChange={()=>console.log('onChange called')}
       />
     </div>
   );
