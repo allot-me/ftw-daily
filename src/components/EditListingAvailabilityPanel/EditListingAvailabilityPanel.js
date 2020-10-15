@@ -56,27 +56,6 @@ const EditListingAvailabilityPanel = props => {
         )}
       </h1>
       <EditListingAvailableFromForm />
-      <EditListingAvailabilityForm
-        className={css.form}
-        listingId={currentListing.id}
-        initialValues={{ availabilityPlan }}
-        availability={availability}
-        availabilityPlan={availabilityPlan}
-        onSubmit={() => {
-          // We save the default availability plan
-          // I.e. this listing is available every night.
-          // Exceptions are handled with live edit through a calendar,
-          // which is visible on this panel.
-          onSubmit({ availabilityPlan });
-        }}
-        onChange={onChange}
-        saveActionMsg={submitButtonText}
-        disabled={disabled}
-        ready={ready}
-        updated={panelUpdated}
-        updateError={errors.updateListingError}
-        updateInProgress={updateInProgress}
-      />
     </div>
   );
 };
