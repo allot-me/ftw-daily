@@ -15,6 +15,7 @@ const EditListingAvailabilityPanel = props => {
     className,
     rootClassName,
     listing,
+    //onSubmit,
     availability,
     disabled,
     ready,
@@ -52,7 +53,10 @@ const EditListingAvailabilityPanel = props => {
     onBlur: () => console.log('onBlur called'),
     onFocus: () => console.log('onBlur called')
   }
-  const onSubmit = () => {console.log('this is called when we press submit')}
+  const onSubmit = () => {
+    console.log('this is called when we press submit')
+    console.log(availability)
+  }
 
   return (
     <div className={classes}>
