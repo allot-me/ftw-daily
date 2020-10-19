@@ -1,6 +1,7 @@
 import React from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import moment from 'moment';
+import { isSameDate, monthIdStringInUTC } from '../../util/dates';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
 import { ensureOwnListing } from '../../util/data';
@@ -9,6 +10,7 @@ import { ListingLink } from '../../components';
 import { EditListingAvailableFromForm } from '../../forms';
 
 import css from './EditListingAvailabilityPanel.css';
+import { deleteAvailabilityExceptionSuccess } from '../../containers/EditListingPage/EditListingPage.duck';
 
 const momentToUTCDate = dateMoment =>
   dateMoment
@@ -61,17 +63,24 @@ const EditListingAvailabilityPanel = props => {
   const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
   const dateInputProps = {
     name: 'availableFrom',
-    placeholderText: moment().format('MMMM D, YYYY'),
+    placeholderText: 'hello',
     useMobileMargins: false,
-    id: 'AvailabilityFrom.bookingDate',
+    id: 'AvailabilityFrom.availableFrom',
     label: 'Select Date',
     format: (value) => value,
     validate: null,
     onBlur: () => console.log('onBlur called'),
-    onFocus: () => console.log('onBlur called')
+  }
+  const getCurrentExceptions = (availability, monthYear) => {
+    return availability.calendar[monthYear].exceptions
   }
   const submitAvailability = (value) => {
     onSubmit({availabilityPlan})
+    const monthYear = monthIdStringInUTC(value)
+    const exceptions = getCurrentExceptions(availability, monthYear)
+    if (exceptions.length > 0){
+      debugger
+    }
     const exception_start = momentToUTCDate(TODAY_MOMENT)
     const exception_end = momentToUTCDate(moment(value.availableFrom.date).startOf('day'))
     const exception = null

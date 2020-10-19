@@ -25,10 +25,10 @@ const END_OF_EXCEPTIONS_RANGE_MOMENT = TODAY_MOMENT.clone()
 
 export class EditListingAvailableFromForm extends Component {
     componentDidMount(){
-    // let {availability, listingId} = this.props
-    // const start = momentToUTCDate(TODAY_MOMENT)
-    // const end = momentToUTCDate(END_OF_EXCEPTIONS_RANGE_MOMENT)
-    // availability.onFetchAvailabilityExceptions({listingId, start, end})
+        let {availability, listingId} = this.props
+        const start = momentToUTCDate(TODAY_MOMENT)
+        const end = momentToUTCDate(TODAY_MOMENT.clone().endOf('month').add(1, 'seconds'))
+        availability.onFetchAvailabilityExceptions({ listingId, start, end });
     }
     render() {
         return (
