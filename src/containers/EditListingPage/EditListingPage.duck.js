@@ -571,7 +571,6 @@ export const requestFetchAvailabilityExceptions = fetchParams => (dispatch, getS
   const { listingId, start, end } = fetchParams;
   // When using time-based process, you might want to deal with local dates using monthIdString
   const monthId = monthIdStringInUTC(start);
-
   dispatch(fetchAvailabilityExceptionsRequest({ ...fetchParams, monthId }));
 
   return sdk.availabilityExceptions

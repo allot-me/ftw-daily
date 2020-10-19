@@ -60,7 +60,7 @@ const EditListingAvailabilityPanel = props => {
   };
   const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
   const dateInputProps = {
-    name: 'bookingDate',
+    name: 'availableFrom',
     placeholderText: moment().format('MMMM D, YYYY'),
     useMobileMargins: false,
     id: 'AvailabilityFrom.bookingDate',
@@ -72,7 +72,11 @@ const EditListingAvailabilityPanel = props => {
   }
   const submitAvailability = (value) => {
     onSubmit({availabilityPlan})
-    console.log(availability.calendar)
+    const exception_start = momentToUTCDate(TODAY_MOMENT)
+    const exception_end = momentToUTCDate(moment(value.availableFrom.date).startOf('day'))
+    const exception = null
+    const params = { listingId: currentListing.id, start: exception_start, end: exception_end, seats: 0, currentException: exception };
+    availability.onCreateAvailabilityException(params)
   }
 
 
