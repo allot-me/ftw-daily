@@ -1,7 +1,7 @@
 import React from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import moment from 'moment';
-import { isSameDate, monthIdStringInUTC } from '../../util/dates';
+import { monthIdStringInUTC } from '../../util/dates';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
 import { ensureOwnListing } from '../../util/data';
@@ -18,15 +18,7 @@ const momentToUTCDate = dateMoment =>
     .add(dateMoment.utcOffset(), 'minutes')
     .toDate();
 
-const MAX_BOOKINGS_RANGE = 180;
 const TODAY_MOMENT = moment().startOf('day');
-const MAX_AVAILABILITY_EXCEPTIONS_RANGE = 365;
-const END_OF_RANGE_MOMENT = TODAY_MOMENT.clone()
-  .add(MAX_AVAILABILITY_EXCEPTIONS_RANGE - 1, 'days')
-  .startOf('day');
-const END_OF_BOOKING_RANGE_MOMENT = TODAY_MOMENT.clone()
-  .add(MAX_BOOKINGS_RANGE - 1, 'days')
-  .startOf('day');
 
 const EditListingAvailabilityPanel = props => {
   const {
@@ -35,13 +27,7 @@ const EditListingAvailabilityPanel = props => {
     listing,
     onSubmit,
     availability,
-    disabled,
-    ready,
-    onChange,
     submitButtonText,
-    panelUpdated,
-    updateInProgress,
-    errors,
   } = props;
 
   const classes = classNames(rootClassName || css.root, className);
@@ -80,7 +66,7 @@ const EditListingAvailabilityPanel = props => {
     const exception_end = momentToUTCDate(moment(value.availableFrom.date).startOf('day'))
     // TODO currentException should not be null
     const params = { listingId: currentListing.id, start: exception_start, end: exception_end, seats: 0, currentException: null};
-    if (exceptions.length == 1){
+    if (exceptions.length === 1){
       const exception = exceptions[0]
       availability.onDeleteAvailabilityException({id: exception.availabilityException.id, seats: 1, currentException: exception}).then(() => {
         availability.onCreateAvailabilityException(params)
