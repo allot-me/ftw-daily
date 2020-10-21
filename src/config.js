@@ -101,7 +101,9 @@ const siteInstagramPage = 'https://www.instagram.com/allotme';
 // Facebook page is used in SEO schema (http://schema.org/Organization)
 const siteFacebookPage = 'https://www.facebook.com/allotme/';
 
-const siteLinkedInPage = 'https://www.bbc.co.uk'
+const siteLinkedInPage = 'https://www.linkedin.com/company/allotme/about/'
+
+const siteYouTubePage = 'https://www.youtube.com/channel/UCiN2QicnaXzmToZV6L_vFig'
 
 // Facebook counts shares with app or page associated by this id
 // Currently it is unset, but you can read more about fb:app_id from
@@ -221,6 +223,8 @@ const config = {
   siteFacebookPage,
   siteInstagramPage,
   siteTwitterHandle,
+  siteLinkedInPage,
+  siteYouTubePage,
   facebookAppId,
   sentryDsn,
   usingSSL,
