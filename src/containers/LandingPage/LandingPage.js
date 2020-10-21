@@ -9,7 +9,6 @@ import config from '../../config';
 import {
   Page,
   SectionHero,
-  SectionHowItWorks,
   LayoutSingleColumn,
   LayoutWrapperTopbar,
   LayoutWrapperMain,
