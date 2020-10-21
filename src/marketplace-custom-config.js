@@ -128,20 +128,44 @@ export const filters = [
       // to make filter customizations a bit easier.
       options: [
         {
-          key: 'big_tool',
-          label: 'Big Tool',
+          key: 'water_source',
+          label: 'Water Source',
         },
         {
-          key: 'little_tool',
-          label: 'Little Tool',
+          key: 'storage_shed',
+          label: 'Storage/Shed',
         },
         {
-          key: 'sprinkler',
-          label: 'Sprinkler',
+          key: 'shovel',
+          label: 'Shovel',
         },
         {
-          key: 'patio',
-          label: 'Patio',
+          key: 'rake',
+          label: 'Rake',
+        },
+        {
+          key: 'trowel',
+          label: 'Trowel',
+        },
+        {
+          key: 'gloves',
+          label: 'Gloves',
+        },
+        {
+          key: 'hose',
+          label: 'Hose',
+        },
+        {
+          key: 'watering_can',
+          label: 'Watering Can',
+        },
+        {
+          key: 'compost_bin',
+          label: 'Compost Bin',
+        },
+        {
+          key: 'lawn_mower',
+          label: 'Lawn Mower',
         },
       ],
     },
