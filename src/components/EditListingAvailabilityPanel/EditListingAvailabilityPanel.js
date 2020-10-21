@@ -10,7 +10,6 @@ import { ListingLink } from '../../components';
 import { EditListingAvailableFromForm } from '../../forms';
 
 import css from './EditListingAvailabilityPanel.css';
-import { deleteAvailabilityExceptionSuccess } from '../../containers/EditListingPage/EditListingPage.duck';
 
 const momentToUTCDate = dateMoment =>
   dateMoment
@@ -60,10 +59,11 @@ const EditListingAvailabilityPanel = props => {
       { dayOfWeek: 'sun', seats: 1 },
     ],
   };
-  const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
+  const getCurrentExceptions = (availability, monthYear) => {
+    return availability.calendar[monthYear].exceptions
+  }
   const dateInputProps = {
     name: 'availableFrom',
-    placeholderText: 'hello',
     useMobileMargins: false,
     id: 'AvailabilityFrom.availableFrom',
     label: 'Select Date',
@@ -71,21 +71,25 @@ const EditListingAvailabilityPanel = props => {
     validate: null,
     onBlur: () => console.log('onBlur called'),
   }
-  const getCurrentExceptions = (availability, monthYear) => {
-    return availability.calendar[monthYear].exceptions
-  }
+  const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
   const submitAvailability = (value) => {
-    onSubmit({availabilityPlan})
+    const exception_start = momentToUTCDate(TODAY_MOMENT)
     const monthYear = monthIdStringInUTC(value)
     const exceptions = getCurrentExceptions(availability, monthYear)
-    if (exceptions.length > 0){
-      debugger
-    }
-    const exception_start = momentToUTCDate(TODAY_MOMENT)
+    onSubmit({availabilityPlan})
     const exception_end = momentToUTCDate(moment(value.availableFrom.date).startOf('day'))
-    const exception = null
-    const params = { listingId: currentListing.id, start: exception_start, end: exception_end, seats: 0, currentException: exception };
-    availability.onCreateAvailabilityException(params)
+    // TODO currentException should not be null
+    const params = { listingId: currentListing.id, start: exception_start, end: exception_end, seats: 0, currentException: null};
+    if (exceptions.length == 1){
+      const exception = exceptions[0]
+      availability.onDeleteAvailabilityException({id: exception.availabilityException.id, seats: 1, currentException: exception}).then(() => {
+        availability.onCreateAvailabilityException(params)
+      }
+      )
+    }
+    else {
+      availability.onCreateAvailabilityException(params)
+    }
   }
 
 
@@ -104,6 +108,7 @@ const EditListingAvailabilityPanel = props => {
       <EditListingAvailableFromForm 
         submitButtonText={submitButtonText}
         dateInputProps={dateInputProps}
+        defaultPlaceholderText={moment().format('MMMM D, YYYY')}
         onSubmit={submitAvailability}
         onChange={()=>console.log('onChange called')}
         availability={availability}

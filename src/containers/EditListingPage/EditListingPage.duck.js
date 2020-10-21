@@ -312,7 +312,6 @@ export default function reducer(state = initialState, action = {}) {
 
     case DELETE_EXCEPTION_REQUEST: {
       const { id, seats, currentException } = payload.params;
-
       // We first create temporary exception with given 'seats' count (the default after deletion).
       // This makes it possible to show the UI element immediately with default color that matches
       // with the availability plan.

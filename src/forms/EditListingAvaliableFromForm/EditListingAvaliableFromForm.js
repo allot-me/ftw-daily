@@ -4,11 +4,9 @@ import { bool, func, object, string, shape } from 'prop-types';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import moment from 'moment';
 import { Button } from '../../components';
-import { required, bookingDateRequired, composeValidators } from '../../util/validators';
-import { createTimeSlots } from '../../util/test-data';
 import FieldDateInput from '../../components/FieldDateInput/FieldDateInput';
 import { compose } from 'redux';
-import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
+import { injectIntl } from '../../util/reactIntl';
 
 const momentToUTCDate = dateMoment =>
   dateMoment
@@ -18,19 +16,25 @@ const momentToUTCDate = dateMoment =>
     .toDate();
 
 const TODAY_MOMENT = moment().startOf('day');
-const MAX_DAYS_TO_REQUEST_EXCEPTIONS = 90
-const END_OF_EXCEPTIONS_RANGE_MOMENT = TODAY_MOMENT.clone()
-  .add(MAX_DAYS_TO_REQUEST_EXCEPTIONS - 1, 'days')
-  .startOf('day');
+const getLastDayOfAvailability = (availability) => {
+    const firstMonthYearOfAvailability = Object.keys(availability.calendar)[0]
+    if (firstMonthYearOfAvailability){
+        if (availability.calendar[firstMonthYearOfAvailability].exceptions.length > 0){
+            return availability.calendar[firstMonthYearOfAvailability].exceptions[0].availabilityException.attributes.end.toString()
+        }
+    }
+}
 
 export class EditListingAvailableFromForm extends Component {
-    componentDidMount(){
-        let {availability, listingId} = this.props
+    async componentDidMount(){
+        let { availability, listingId } = this.props
         const start = momentToUTCDate(TODAY_MOMENT)
-        const end = momentToUTCDate(TODAY_MOMENT.clone().endOf('month').add(1, 'seconds'))
-        availability.onFetchAvailabilityExceptions({ listingId, start, end });
+        const end = momentToUTCDate(TODAY_MOMENT.clone().add(1, 'months').startOf('month'))
+        await availability.onFetchAvailabilityExceptions({ listingId, start, end });
     }
     render() {
+        const lastDay = getLastDayOfAvailability(this.props.availability)
+        const placeholderText = lastDay || this.props.defaultPlaceholderText
         return (
             <FinalForm
                 {...this.props}
@@ -47,8 +51,8 @@ export class EditListingAvailableFromForm extends Component {
                     submitButtonText
                 } = fieldRenderProps;
                 const submitDisabled = pristine || submitting;
-                if (values && values.bookingDates) {
-                    onChange(values.bookingDates);
+                if (values && values.availableFrom) {
+                    onChange(values.availableFrom);
                 }
 
                 return (
@@ -60,7 +64,7 @@ export class EditListingAvailableFromForm extends Component {
                     }}
                     >
                     <FormSpy onChange={onChange} />
-                    <FieldDateInput {...dateInputProps} />
+                    <FieldDateInput {...dateInputProps} placeholderText={placeholderText}/>
                     <Button type="submit" disabled={submitDisabled} style={{ marginTop: '24px' }}>
                         {submitButtonText}
                     </Button>
@@ -79,12 +83,12 @@ EditListingAvailableFromForm.propTypes= {
       useMobileMargins: bool,
       id: string,
       label: string,
-      placeholderText: string,
       format: func,
       validate: func,
       onBlur: func,
       onFocus: func,
     }),
+    defaultPlaceholderText: string,
     onChange: func,
     onSubmit: func 
 };
