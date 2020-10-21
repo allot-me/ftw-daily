@@ -44,7 +44,7 @@
     {:name :action/stripe-refund-payment}],
    :from :state/preauthorized,
    :to :state/declined}
-  {:name :transition/expire,fdsfds
+  {:name :transition/expire,
    :at
    {:fn/min
     [{:fn/plus
@@ -58,11 +58,13 @@
     {:name :action/stripe-refund-payment}],
    :from :state/preauthorized,
    :to :state/declined}
-  {:name :transition/complete,
+  {:name :transition/repeat,
    :at {:fn/timepoint [:time/booking-end]},
-   :actions [{:name :action/stripe-create-payout}],
+   :actions[{
+     :name :action/update-booking
+    }]
    :from :state/accepted,
-   :to :state/delivered}
+   :to :state/accepted}
   {:name :transition/cancel,
    :actor :actor.role/operator,
    :actions
@@ -70,7 +72,7 @@
     {:name :action/calculate-full-refund}
     {:name :action/stripe-refund-payment}],
    :from :state/accepted,
-   :to :state/cancelled}
+   :to :state/cancelled}]
  :notifications
  [{:name :notification/new-booking-request,
    :on :transition/confirm-payment,
@@ -88,31 +90,4 @@
    :on :transition/expire,
    :to :actor.role/customer,
    :template :booking-request-auto-declined}
-  {:name :notification/money-paid,
-   :on :transition/complete,
-   :to :actor.role/provider,
-   :template :money-paid}
-  {:name :notification/review-period-start-provider,
-   :on :transition/complete,
-   :to :actor.role/provider,
-   :template :review-by-provider-wanted}
-  {:name :notification/review-period-start-customer,
-   :on :transition/complete,
-   :to :actor.role/customer,
-   :template :review-by-customer-wanted}
-  {:name :notification/review-by-provider-first,
-   :on :transition/review-1-by-provider,
-   :to :actor.role/customer,
-   :template :review-by-other-party-unpublished}
-  {:name :notification/review-by-customer-first,
-   :on :transition/review-1-by-customer,
-   :to :actor.role/provider,
-   :template :review-by-other-party-unpublished}
-  {:name :notification/review-by-provider-second,
-   :on :transition/review-2-by-provider,
-   :to :actor.role/customer,
-   :template :review-by-other-party-published}
-  {:name :notification/review-by-customer-second,
-   :on :transition/review-2-by-customer,
-   :to :actor.role/provider,
-   :template :review-by-other-party-published}]}
+  ]}
