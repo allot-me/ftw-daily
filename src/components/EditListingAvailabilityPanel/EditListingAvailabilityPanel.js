@@ -38,7 +38,7 @@ const EditListingDescriptionPanel = props => {
       values={{ listingTitle: <ListingLink listing={listing} /> }}
     />
   ) : (
-    <FormattedMessage id="EditListingPanel.createListingTitle" />
+    <FormattedMessage id="EditListingAvailabilityPanel.createListingTitle" />
   );
 
   const howAccessedOptions = findOptionsForSelectFilter('how_accessed', config.custom.filters);
