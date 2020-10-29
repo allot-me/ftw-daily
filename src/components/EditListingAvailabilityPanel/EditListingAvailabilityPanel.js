@@ -28,8 +28,7 @@ const EditListingDescriptionPanel = props => {
 
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
-  const { description, title } = currentListing.attributes;
-  const { space_type, how_accessed } = currentListing.attributes.publicData
+  const { availabililty } = currentListing.attributes.publicData
 
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const panelTitle = isPublished ? (
@@ -41,23 +40,19 @@ const EditListingDescriptionPanel = props => {
     <FormattedMessage id="EditListingAvailabilityPanel.createListingTitle" />
   );
 
-  const howAccessedOptions = findOptionsForSelectFilter('how_accessed', config.custom.filters);
-  const spaceTypeOptions = findOptionsForSelectFilter('space_type', config.custom.filters);
+  const availabilityOptions = findOptionsForSelectFilter('availability', config.custom.filters);
   return (
     <div className={classes}>
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingAvailabilityForm
         className={css.form}
-        initialValues={{ title, description, space_type, how_accessed}}
+        initialValues={{ availabililty }}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
-          const { title, description, space_type, how_accessed } = values;
+          const { availabililty } = values;
           const updateValues = {
-            title: title.trim(),
-            description,
             publicData: { 
-              space_type, 
-              how_accessed
+              availabililty 
             },
           };
           onSubmit(updateValues);
@@ -68,8 +63,7 @@ const EditListingDescriptionPanel = props => {
         updated={panelUpdated}
         updateInProgress={updateInProgress}
         fetchErrors={errors}
-        howAccessed={howAccessedOptions}
-        spaceType={spaceTypeOptions}
+        availability={availabilityOptions}
       />
     </div>
   );

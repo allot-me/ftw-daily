@@ -112,6 +112,23 @@ export const filters = [
     },
   },
   {
+    id: 'availability',
+    label: 'Availability',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamNames: ['pub_category'],
+    config: {
+      // "key" is the option you see in Flex Console.
+      // "label" is set here for the UI only.
+      // Note: label is not added through the translation files
+      // to make filter customizations a bit easier.
+      options: [
+        { key: 'available', label: "Available" },
+        { key: "unavailable", label: "Unavailable" },
+      ],
+    },
+  },
+  {
     id: 'amenities',
     label: 'Amenities',
     type: 'SelectMultipleFilter',
