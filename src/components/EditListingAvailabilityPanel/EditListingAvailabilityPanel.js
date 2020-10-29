@@ -6,7 +6,7 @@ import { ensureOwnListing } from '../../util/data';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { ListingLink } from '../../components';
-import { EditListingDescriptionForm } from '../../forms';
+import { EditListingAvailabilityForm } from '../../forms';
 import config from '../../config';
 
 import css from './EditListingAvailabilityPanel.css';
@@ -46,7 +46,7 @@ const EditListingDescriptionPanel = props => {
   return (
     <div className={classes}>
       <h1 className={css.title}>{panelTitle}</h1>
-      <EditListingDescriptionForm
+      <EditListingAvailabilityForm
         className={css.form}
         initialValues={{ title, description, space_type, how_accessed}}
         saveActionMsg={submitButtonText}
