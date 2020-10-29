@@ -4,17 +4,17 @@ import { FieldSelect } from '../../components';
 
 import css from './EditListingAvailabilityForm.css';
 
-const CustomCategorySelectSpaceType = props => {
+const CustomCategorySelectAvailability = props => {
   const { name, id, categories, intl } = props;
   const categoryLabel = intl.formatMessage({
-    id: 'EditListingDescriptionForm.categorySpaceTypeLabel',
+    id: 'EditListingAvailabilityForm.availabilityLabel',
   });
   const categoryPlaceholder = intl.formatMessage({
-    id: 'EditListingDescriptionForm.categorySpaceTypePlaceholder',
+    id: 'EditListingAvailabilityForm.availabilityPlaceholder',
   });
   const categoryRequired = required(
     intl.formatMessage({
-      id: 'EditListingDescriptionForm.categorySpaceTypeRequired',
+      id: 'EditListingAvailabilityForm.availabilityRequired',
     })
   );
   return categories ? (
@@ -37,4 +37,4 @@ const CustomCategorySelectSpaceType = props => {
   ) : null;
 };
 
-export default CustomCategorySelectSpaceType;
+export default CustomCategorySelectAvailability;

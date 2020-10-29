@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { propTypes } from '../../util/types';
 import { maxLength, } from '../../util/validators';
 import { Form, Button, } from '../../components';
-import CustomCategorySelectSpaceType from './CustomCategorySelectSpaceType';
+import CustomCategorySelectAvailability from './CustomCategorySelectAvailability';
 
 import css from './EditListingAvailabilityForm.css';
 
@@ -62,7 +62,7 @@ const EditListingDescriptionFormComponent = props => (
           {errorMessageCreateListingDraft}
           {errorMessageUpdateListing}
           {errorMessageShowListing}
-          <CustomCategorySelectSpaceType
+          <CustomCategorySelectAvailability
             id="availability"
             name="availability"
             categories={availability}
