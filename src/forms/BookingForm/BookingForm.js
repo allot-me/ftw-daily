@@ -5,16 +5,22 @@ import { Form as FinalForm, FormSpy } from 'react-final-form';
 import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
 import moment from 'moment';
-import { required, bookingDatesRequired, composeValidators } from '../../util/validators';
-import { START_DATE, END_DATE } from '../../util/dates';
 import { propTypes } from '../../util/types';
 import config from '../../config';
 import { Form, IconSpinner, PrimaryButton, FieldDateRangeInput } from '../../components';
-import EstimatedBreakdownMaybe from './EstimatedBreakdownMaybe';
 
 import css from './BookingDatesForm.css';
 
-const identity = v => v;
+const now = moment();
+const one_week_tomorrow = now
+  .startOf('day')
+  .add(8, 'days')
+  .toDate();
+const two_weeks_tomorrow = now
+  .startOf('day')
+  .add(15, 'days')
+  .toDate();
+
 
 export class BookingDatesFormComponent extends Component {
   constructor(props) {
@@ -32,20 +38,12 @@ export class BookingDatesFormComponent extends Component {
     this.setState({ focusedInput });
   }
 
-  // In case start or end date for the booking is missing
-  // focus on that input, otherwise continue with the
-  // default handleSubmit function.
   handleFormSubmit(e) {
-    const { startDate, endDate } = e.bookingDates || {};
-    if (!startDate) {
-      e.preventDefault();
-      this.setState({ focusedInput: START_DATE });
-    } else if (!endDate) {
-      e.preventDefault();
-      this.setState({ focusedInput: END_DATE });
-    } else {
-      this.props.onSubmit(e);
+    e.bookingDates = {
+      startDate: one_week_tomorrow,
+      endDate: two_weeks_tomorrow 
     }
+    this.props.onSubmit(e);
   }
 
   // When the values of the form are updated we need to fetch
@@ -97,68 +95,18 @@ export class BookingDatesFormComponent extends Component {
         onSubmit={this.handleFormSubmit}
         render={fieldRenderProps => {
           const {
-            endDatePlaceholder,
-            startDatePlaceholder,
-            formId,
             handleSubmit,
-            intl,
             isOwnListing,
             submitButtonWrapperClassName,
-            unitType,
-            values,
-            timeSlots,
             fetchTimeSlotsError,
-            lineItems,
             fetchLineItemsInProgress,
             fetchLineItemsError,
           } = fieldRenderProps;
-          const { startDate, endDate } = values && values.bookingDates ? values.bookingDates : {};
 
-          const bookingStartLabel = intl.formatMessage({
-            id: 'BookingDatesForm.bookingStartTitle',
-          });
-          const bookingEndLabel = intl.formatMessage({
-            id: 'BookingDatesForm.bookingEndTitle',
-          });
-          const requiredMessage = intl.formatMessage({
-            id: 'BookingDatesForm.requiredDate',
-          });
-          const startDateErrorMessage = intl.formatMessage({
-            id: 'FieldDateRangeInput.invalidStartDate',
-          });
-          const endDateErrorMessage = intl.formatMessage({
-            id: 'FieldDateRangeInput.invalidEndDate',
-          });
           const timeSlotsError = fetchTimeSlotsError ? (
             <p className={css.sideBarError}>
               <FormattedMessage id="BookingDatesForm.timeSlotsError" />
             </p>
-          ) : null;
-
-          // This is the place to collect breakdown estimation data.
-          // Note: lineItems are calculated and fetched from FTW backend
-          // so we need to pass only booking data that is needed otherwise
-          // If you have added new fields to the form that will affect to pricing,
-          // you need to add the values to handleOnChange function
-          const bookingData =
-            startDate && endDate
-              ? {
-                  unitType,
-                  startDate,
-                  endDate,
-                }
-              : null;
-
-          const showEstimatedBreakdown =
-            bookingData && lineItems && !fetchLineItemsInProgress && !fetchLineItemsError;
-
-          const bookingInfoMaybe = showEstimatedBreakdown ? (
-            <div className={css.priceBreakdownContainer}>
-              <h3 className={css.priceBreakdownTitle}>
-                <FormattedMessage id="BookingDatesForm.priceBreakdownTitle" />
-              </h3>
-              <EstimatedBreakdownMaybe bookingData={bookingData} lineItems={lineItems} />
-            </div>
           ) : null;
 
           const loadingSpinnerMaybe = fetchLineItemsInProgress ? (
@@ -177,16 +125,6 @@ export class BookingDatesFormComponent extends Component {
             day: 'numeric',
           };
 
-          const now = moment();
-          const today = now.startOf('day').toDate();
-          const tomorrow = now
-            .startOf('day')
-            .add(1, 'days')
-            .toDate();
-          const startDatePlaceholderText =
-            startDatePlaceholder || intl.formatDate(today, dateFormatOptions);
-          const endDatePlaceholderText =
-            endDatePlaceholder || intl.formatDate(tomorrow, dateFormatOptions);
           const submitButtonClasses = classNames(
             submitButtonWrapperClassName || css.submitButtonWrapper
           );
@@ -200,29 +138,7 @@ export class BookingDatesFormComponent extends Component {
                   this.handleOnChange(values);
                 }}
               />
-              <FieldDateRangeInput
-                className={css.bookingDates}
-                name="bookingDates"
-                unitType={unitType}
-                startDateId={`${formId}.bookingStartDate`}
-                startDateLabel={bookingStartLabel}
-                startDatePlaceholderText={startDatePlaceholderText}
-                endDateId={`${formId}.bookingEndDate`}
-                endDateLabel={bookingEndLabel}
-                endDatePlaceholderText={endDatePlaceholderText}
-                focusedInput={this.state.focusedInput}
-                onFocusedInputChange={this.onFocusedInputChange}
-                format={identity}
-                timeSlots={timeSlots}
-                useMobileMargins
-                validate={composeValidators(
-                  required(requiredMessage),
-                  bookingDatesRequired(startDateErrorMessage, endDateErrorMessage)
-                )}
-                disabled={fetchLineItemsInProgress}
-              />
 
-              {bookingInfoMaybe}
               {loadingSpinnerMaybe}
               {bookingInfoErrorMaybe}
 
@@ -285,6 +201,6 @@ BookingDatesFormComponent.propTypes = {
 };
 
 const BookingDatesForm = compose(injectIntl)(BookingDatesFormComponent);
-BookingDatesForm.displayName = 'BookingDatesForm';
+BookingForm.displayName = 'BookingForm';
 
-export default BookingDatesForm;
+export default BookingForm;
