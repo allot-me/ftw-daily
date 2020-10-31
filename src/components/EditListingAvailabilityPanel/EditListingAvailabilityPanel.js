@@ -49,10 +49,10 @@ const EditListingDescriptionPanel = props => {
         initialValues={{ availabililty }}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
-          const { availabililty } = values;
+          const { availability } = values;
           const updateValues = {
             publicData: { 
-              availabililty 
+              availability 
             },
           };
           onSubmit(updateValues);
