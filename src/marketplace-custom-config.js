@@ -115,7 +115,7 @@ export const filters = [
     id: 'availability',
     label: 'Availability',
     type: 'SelectSingleFilter',
-    group: 'secondary',
+    group: 'primary',
     queryParamNames: ['pub_category'],
     config: {
       // "key" is the option you see in Flex Console.

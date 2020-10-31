@@ -34,7 +34,6 @@ import config from '../../config';
 
 // These are internal components that make this file more readable.
 import AddressLinkMaybe from './AddressLinkMaybe';
-import BreakdownMaybe from './BreakdownMaybe';
 import DetailCardHeadingsMaybe from './DetailCardHeadingsMaybe';
 import DetailCardImage from './DetailCardImage';
 import FeedSection from './FeedSection';
@@ -373,7 +372,6 @@ export class TransactionPanelComponent extends Component {
                 geolocation={geolocation}
                 showAddress={stateData.showAddress}
               />
-              <BreakdownMaybe transaction={currentTransaction} transactionRole={transactionRole} />
             </div>
 
             {savePaymentMethodFailed ? (
@@ -454,11 +452,6 @@ export class TransactionPanelComponent extends Component {
                   fetchLineItemsError={fetchLineItemsError}
                 />
               ) : null}
-              <BreakdownMaybe
-                className={css.breakdownContainer}
-                transaction={currentTransaction}
-                transactionRole={transactionRole}
-              />
 
               {stateData.showSaleButtons ? (
                 <div className={css.desktopActionButtons}>{saleButtons}</div>

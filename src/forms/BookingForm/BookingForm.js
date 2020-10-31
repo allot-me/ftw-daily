@@ -144,12 +144,6 @@ BookingFormComponent.propTypes = {
   unitType: propTypes.bookingUnitType.isRequired,
   price: propTypes.money,
   isOwnListing: bool,
-  timeSlots: arrayOf(propTypes.timeSlot),
-
-  onFetchTransactionLineItems: func.isRequired,
-  lineItems: array,
-  fetchLineItemsInProgress: bool.isRequired,
-  fetchLineItemsError: propTypes.error,
 
   // from injectIntl
   intl: intlShape.isRequired,
