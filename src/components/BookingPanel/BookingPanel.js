@@ -10,7 +10,7 @@ import { formatMoney } from '../../util/currency';
 import { parse, stringify } from '../../util/urlHelpers';
 import config from '../../config';
 import { ModalInMobile, Button } from '../../components';
-import { BookingDatesForm } from '../../forms';
+import { BookingForm } from '../../forms';
 
 import css from './BookingPanel.css';
 
@@ -119,7 +119,7 @@ const BookingPanel = props => {
           {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null}
         </div>
         {showBookingDatesForm ? (
-          <BookingDatesForm
+          <BookingForm
             className={css.bookingForm}
             formId="BookingPanel"
             submitButtonWrapperClassName={css.bookingDatesSubmitButtonWrapper}
