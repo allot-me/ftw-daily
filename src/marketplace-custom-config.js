@@ -36,7 +36,7 @@
 export const filters = [
   {
     id: 'price',
-    label: 'Price',
+    label: 'Price per month',
     type: 'PriceFilter',
     group: 'primary',
     // Note: PriceFilter is fixed filter,
