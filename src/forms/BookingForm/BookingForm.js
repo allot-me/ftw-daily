@@ -22,20 +22,11 @@ const two_weeks_tomorrow = now
   .toDate();
 
 
-export class BookingDatesFormComponent extends Component {
+export class BookingFormComponent extends Component {
   constructor(props) {
     super(props);
     this.state = { focusedInput: null };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.onFocusedInputChange = this.onFocusedInputChange.bind(this);
-    this.handleOnChange = this.handleOnChange.bind(this);
-  }
-
-  // Function that can be passed to nested components
-  // so that they can notify this component when the
-  // focused input changes.
-  onFocusedInputChange(focusedInput) {
-    this.setState({ focusedInput });
   }
 
   handleFormSubmit(e) {
@@ -44,25 +35,6 @@ export class BookingDatesFormComponent extends Component {
       endDate: two_weeks_tomorrow 
     }
     this.props.onSubmit(e);
-  }
-
-  // When the values of the form are updated we need to fetch
-  // lineItems from FTW backend for the EstimatedTransactionMaybe
-  // In case you add more fields to the form, make sure you add
-  // the values here to the bookingData object.
-  handleOnChange(formValues) {
-    const { startDate, endDate } =
-      formValues.values && formValues.values.bookingDates ? formValues.values.bookingDates : {};
-    const listingId = this.props.listingId;
-    const isOwnListing = this.props.isOwnListing;
-
-    if (startDate && endDate && !this.props.fetchLineItemsInProgress) {
-      this.props.onFetchTransactionLineItems({
-        bookingData: { startDate, endDate },
-        listingId,
-        isOwnListing,
-      });
-    }
   }
 
   render() {
@@ -119,12 +91,6 @@ export class BookingDatesFormComponent extends Component {
             </span>
           ) : null;
 
-          const dateFormatOptions = {
-            weekday: 'short',
-            month: 'short',
-            day: 'numeric',
-          };
-
           const submitButtonClasses = classNames(
             submitButtonWrapperClassName || css.submitButtonWrapper
           );
@@ -132,13 +98,6 @@ export class BookingDatesFormComponent extends Component {
           return (
             <Form onSubmit={handleSubmit} className={classes}>
               {timeSlotsError}
-              <FormSpy
-                subscription={{ values: true }}
-                onChange={values => {
-                  this.handleOnChange(values);
-                }}
-              />
-
               {loadingSpinnerMaybe}
               {bookingInfoErrorMaybe}
 
@@ -164,7 +123,7 @@ export class BookingDatesFormComponent extends Component {
   }
 }
 
-BookingDatesFormComponent.defaultProps = {
+BookingFormComponent.defaultProps = {
   rootClassName: null,
   className: null,
   submitButtonWrapperClassName: null,
@@ -177,7 +136,7 @@ BookingDatesFormComponent.defaultProps = {
   fetchLineItemsError: null,
 };
 
-BookingDatesFormComponent.propTypes = {
+BookingFormComponent.propTypes = {
   rootClassName: string,
   className: string,
   submitButtonWrapperClassName: string,
@@ -200,7 +159,7 @@ BookingDatesFormComponent.propTypes = {
   endDatePlaceholder: string,
 };
 
-const BookingDatesForm = compose(injectIntl)(BookingDatesFormComponent);
+const BookingForm = compose(injectIntl)(BookingFormComponent);
 BookingForm.displayName = 'BookingForm';
 
 export default BookingForm;
