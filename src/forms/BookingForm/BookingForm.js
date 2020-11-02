@@ -9,7 +9,7 @@ import { propTypes } from '../../util/types';
 import config from '../../config';
 import { Form, IconSpinner, PrimaryButton, FieldDateRangeInput } from '../../components';
 
-import css from './BookingDatesForm.css';
+import css from './BookingForm.css';
 
 const now = moment();
 const one_week_tomorrow = now
