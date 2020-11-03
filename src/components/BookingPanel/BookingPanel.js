@@ -74,7 +74,7 @@ const BookingPanel = props => {
   const price = listing.attributes.price;
   const hasListingState = !!listing.attributes.state;
   const isClosed = hasListingState && listing.attributes.state === LISTING_STATE_CLOSED;
-  const showBookingDatesForm = hasListingState && !isClosed;
+  const showBookingDatesForm = hasListingState && !isClosed && listing.attributes.publicData.availability == 'available';
   const showClosedListingHelpText = listing.id && isClosed;
   const { formattedPrice, priceTitle } = priceData(price, intl);
   const isBook = !!parse(location.search).book;
@@ -82,8 +82,8 @@ const BookingPanel = props => {
   const subTitleText = !!subTitle
     ? subTitle
     : showClosedListingHelpText
-    ? intl.formatMessage({ id: 'BookingPanel.subTitleClosedListing' })
-    : null;
+      ? intl.formatMessage({ id: 'BookingPanel.subTitleClosedListing' })
+      : null;
 
   const isNightly = unitType === LINE_ITEM_NIGHT;
   const isDaily = unitType === LINE_ITEM_DAY;
@@ -91,8 +91,8 @@ const BookingPanel = props => {
   const unitTranslationKey = isNightly
     ? 'BookingPanel.perNight'
     : isDaily
-    ? 'BookingPanel.perDay'
-    : 'BookingPanel.perUnit';
+      ? 'BookingPanel.perDay'
+      : 'BookingPanel.perUnit';
 
   const classes = classNames(rootClassName || css.root, className);
   const titleClasses = classNames(titleClassName || css.bookingTitle);
@@ -114,28 +114,28 @@ const BookingPanel = props => {
           </div>
         </div>
 
-        <div className={css.bookingHeading}>
-          <h2 className={titleClasses}>{title}</h2>
-          {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null}
-        </div>
         {showBookingDatesForm ? (
-          <BookingForm
-            className={css.bookingForm}
-            formId="BookingPanel"
-            submitButtonWrapperClassName={css.bookingDatesSubmitButtonWrapper}
-            unitType={unitType}
-            onSubmit={onSubmit}
-            price={price}
-            listingId={listing.id}
-            isOwnListing={isOwnListing}
-            timeSlots={timeSlots}
-            fetchTimeSlotsError={fetchTimeSlotsError}
-            onFetchTransactionLineItems={onFetchTransactionLineItems}
-            lineItems={lineItems}
-            fetchLineItemsInProgress={fetchLineItemsInProgress}
-            fetchLineItemsError={fetchLineItemsError}
-          />
-        ) : null}
+          <div>
+            <div className={css.bookingHeading}>
+              <h2 className={titleClasses}>{title}</h2>
+              {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null}
+            </div>
+            <BookingForm
+              className={css.bookingForm}
+              formId="BookingPanel"
+              submitButtonWrapperClassName={css.bookingDatesSubmitButtonWrapper}
+              unitType={unitType}
+              onSubmit={onSubmit}
+              price={price}
+              listingId={listing.id}
+              isOwnListing={isOwnListing}
+              fetchTimeSlotsError={fetchTimeSlotsError}
+              onFetchTransactionLineItems={onFetchTransactionLineItems}
+              lineItems={lineItems}
+              fetchLineItemsInProgress={fetchLineItemsInProgress}
+              fetchLineItemsError={fetchLineItemsError}
+            /></div>
+        ) : <p>This site is not currently available</p>}
       </ModalInMobile>
       <div className={css.openBookingForm}>
         <div className={css.priceContainer}>
