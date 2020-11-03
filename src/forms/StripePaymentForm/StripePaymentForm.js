@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import config from '../../config';
 import { propTypes } from '../../util/types';
 import { ensurePaymentMethodCard } from '../../util/data';
+import * as validators from '../../util/validators';
 
 import {
   Form,
@@ -371,13 +372,8 @@ class StripePaymentForm extends Component {
       { name: authorDisplayName }
     );
 
-    const messageOptionalText = intl.formatMessage({
-      id: 'StripePaymentForm.messageOptionalText',
-    });
-
     const initialMessageLabel = intl.formatMessage(
       { id: 'StripePaymentForm.messageLabel' },
-      { messageOptionalText: messageOptionalText }
     );
 
     // Asking billing address is recommended in PaymentIntent flow.
@@ -395,8 +391,25 @@ class StripePaymentForm extends Component {
     const showOnetimePaymentFields = ['onetimeCardPayment', 'replaceCard'].includes(
       selectedPaymentMethod
     );
+    const required = validators.required('You must send a welcome message to the host');
     return hasStripeKey ? (
       <Form className={classes} onSubmit={handleSubmit}>
+        {showInitialMessageInput ? (
+          <div>
+            <h3 className={css.messageHeading}>
+              <FormattedMessage id="StripePaymentForm.messageHeading" />
+            </h3>
+            <FieldTextInput
+              type="textarea"
+              id={`${formId}-message`}
+              name="initialMessage"
+              label={initialMessageLabel}
+              placeholder={messagePlaceholder}
+              className={css.message}
+              validate={required}
+            />
+          </div>
+        ) : null}
         {billingDetailsNeeded && !loadingData ? (
           <React.Fragment>
             {showPaymentMethodSelector ? (
@@ -456,22 +469,6 @@ class StripePaymentForm extends Component {
         {initiateOrderError ? (
           <span className={css.errorMessage}>{initiateOrderError.message}</span>
         ) : null}
-        {showInitialMessageInput ? (
-          <div>
-            <h3 className={css.messageHeading}>
-              <FormattedMessage id="StripePaymentForm.messageHeading" />
-            </h3>
-
-            <FieldTextInput
-              type="textarea"
-              id={`${formId}-message`}
-              name="initialMessage"
-              label={initialMessageLabel}
-              placeholder={messagePlaceholder}
-              className={css.message}
-            />
-          </div>
-        ) : null}
         <div className={css.submitContainer}>
           {hasPaymentErrors ? (
             <span className={css.errorMessage}>{paymentErrorMessage}</span>
@@ -500,6 +497,7 @@ class StripePaymentForm extends Component {
 
   render() {
     const { onSubmit, ...rest } = this.props;
+    console.log(this.props)
     return <FinalForm onSubmit={this.handleSubmit} {...rest} render={this.paymentForm} />;
   }
 }
