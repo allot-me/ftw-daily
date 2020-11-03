@@ -55,7 +55,7 @@ export const filters = [
     label: 'How space accessed',
     type: 'SelectSingleFilter',
     group: 'secondary',
-    queryParamNames: ['pub_category'],
+    queryParamNames: ['pub_how_accessed'],
     config: {
       // "key" is the option you see in Flex Console.
       // "label" is set here for the UI only.
@@ -73,8 +73,8 @@ export const filters = [
     id: 'space_type',
     label: 'Space Type',
     type: 'SelectSingleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_category'],
+    group: 'primary',
+    queryParamNames: ['pub_space_type'],
     config: {
       // "key" is the option you see in Flex Console.
       // "label" is set here for the UI only.
@@ -93,7 +93,7 @@ export const filters = [
     label: 'Availability',
     type: 'SelectSingleFilter',
     group: 'primary',
-    queryParamNames: ['pub_category'],
+    queryParamNames: ['pub_availability'],
     config: {
       // "key" is the option you see in Flex Console.
       // "label" is set here for the UI only.
