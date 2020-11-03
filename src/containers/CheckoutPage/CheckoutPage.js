@@ -33,7 +33,6 @@ import { formatMoney } from '../../util/currency';
 import { TRANSITION_ENQUIRE, txIsPaymentPending, txIsPaymentExpired } from '../../util/transaction';
 import {
   AvatarMedium,
-  BookingBreakdown,
   Logo,
   NamedLink,
   NamedRedirect,
@@ -579,22 +578,6 @@ export class CheckoutPageComponent extends Component {
       return <NamedRedirect name="ListingPage" params={params} />;
     }
 
-    // Show breakdown only when speculated transaction and booking are loaded
-    // (i.e. have an id)
-    const tx = existingTransaction.booking ? existingTransaction : speculatedTransaction;
-    const txBooking = ensureBooking(tx.booking);
-    const breakdown =
-      tx.id && txBooking.id ? (
-        <BookingBreakdown
-          className={css.bookingBreakdown}
-          userRole="customer"
-          unitType={config.bookingUnitType}
-          transaction={tx}
-          booking={txBooking}
-          dateType={DATE_TYPE_DATE}
-        />
-      ) : null;
-
     const isPaymentExpired = checkIsPaymentExpired(existingTransaction);
     const hasDefaultPaymentMethod = !!(
       stripeCustomerFetched &&
@@ -774,11 +757,6 @@ export class CheckoutPageComponent extends Component {
               </div>
             </div>
 
-            <div className={css.priceBreakdownContainer}>
-              {speculateTransactionErrorMessage}
-              {breakdown}
-            </div>
-
             <section className={css.paymentContainer}>
               {initiateOrderErrorMessage}
               {listingNotFoundErrorMessage}
@@ -841,7 +819,6 @@ export class CheckoutPageComponent extends Component {
               <p className={css.detailsSubtitle}>{detailsSubTitle}</p>
             </div>
             {speculateTransactionErrorMessage}
-            {breakdown}
           </div>
         </div>
       </Page>
