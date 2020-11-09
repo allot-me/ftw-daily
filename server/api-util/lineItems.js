@@ -27,9 +27,8 @@ const PROVIDER_COMMISSION_PERCENTAGE = -10;
  * @param {Object} bookingData
  * @returns {Array} lineItems
  */
-exports.transactionLineItems = (listing, bookingData) => {
+exports.transactionLineItems = (listing, _) => {
   const unitPrice = listing.attributes.price;
-  const { startDate, endDate } = bookingData;
 
   /**
    * If you want to use pre-defined component and translations for printing the lineItems base price for booking,
@@ -41,17 +40,19 @@ exports.transactionLineItems = (listing, bookingData) => {
    *
    * By default BookingBreakdown prints line items inside LineItemUnknownItemsMaybe if the lineItem code is not recognized. */
 
+  // We set quantity as one, as we only charge for the first month
+
   const booking = {
     code: bookingUnitType,
     unitPrice,
-    quantity: calculateQuantityFromDates(startDate, endDate, bookingUnitType),
+    quantity: 1,
     includeFor: ['customer', 'provider'],
   };
 
   const providerCommission = {
     code: 'line-item/provider-commission',
     unitPrice: calculateTotalFromLineItems([booking]),
-    percentage: PROVIDER_COMMISSION_PERCENTAGE,
+    percentage: 0,
     includeFor: ['provider'],
   };
 
