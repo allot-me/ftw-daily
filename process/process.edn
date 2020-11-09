@@ -9,7 +9,6 @@
    :privileged? true,
    :actions
    [{:name :action/create-pending-booking}
-    {:name :action/privileged-set-line-items}
     {:name :action/stripe-create-payment-intent}],
    :from :state/enquiry,
    :to :state/pending-payment}
@@ -21,19 +20,19 @@
    :actions
    [{:name :action/decline-booking}
     {:name :action/calculate-full-refund}
-    {:name :action/stripe-refund-payment}],
+    ],
    :from :state/pending-payment,
    :to :state/payment-expired}
   {:name :transition/confirm-payment,
    :actor :actor.role/customer,
-   :actions [{:name :action/stripe-confirm-payment-intent}],
+   :actions [],
    :from :state/pending-payment,
    :to :state/preauthorized}
   {:name :transition/accept,
    :actor :actor.role/provider,
    :actions
    [{:name :action/accept-booking}
-    {:name :action/stripe-capture-payment-intent}],
+    ],
    :from :state/preauthorized,
    :to :state/accepted}
   {:name :transition/decline,
@@ -41,7 +40,7 @@
    :actions
    [{:name :action/decline-booking}
     {:name :action/calculate-full-refund}
-    {:name :action/stripe-refund-payment}],
+    ],
    :from :state/preauthorized,
    :to :state/declined}
   {:name :transition/expire,
@@ -55,7 +54,7 @@
    :actions
    [{:name :action/decline-booking}
     {:name :action/calculate-full-refund}
-    {:name :action/stripe-refund-payment}],
+    ],
    :from :state/preauthorized,
    :to :state/declined}
   {:name :transition/repeat,
@@ -70,7 +69,7 @@
    :actions
    [{:name :action/cancel-booking}
     {:name :action/calculate-full-refund}
-    {:name :action/stripe-refund-payment}],
+    ],
    :from :state/accepted,
    :to :state/cancelled}]
  :notifications
