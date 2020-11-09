@@ -9,6 +9,7 @@
    :privileged? true,
    :actions
    [{:name :action/create-proposed-booking}
+    {:name :action/privileged-set-line-items}
     {:name :action/stripe-create-payment-intent}],
    :to :state/pending-payment}
   {:name :transition/request-payment-after-enquiry,
@@ -16,6 +17,7 @@
    :privileged? true,
    :actions
    [{:name :action/create-proposed-booking}
+    {:name :action/privileged-set-line-items}
     {:name :action/stripe-create-payment-intent}],
    :from :state/enquiry,
    :to :state/pending-payment}
