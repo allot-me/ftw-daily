@@ -57,13 +57,6 @@
     ],
    :from :state/preauthorized,
    :to :state/declined}
-  {:name :transition/repeat,
-   :at {:fn/timepoint [:time/booking-end]},
-   :actions[{
-     :name :action/update-booking
-    }]
-   :from :state/accepted,
-   :to :state/accepted}
   {:name :transition/cancel,
    :actor :actor.role/operator,
    :actions
