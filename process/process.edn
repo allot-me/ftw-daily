@@ -8,7 +8,7 @@
    :actor :actor.role/customer,
    :privileged? true,
    :actions
-   [{:name :action/create-pending-booking}
+   [{:name :action/create-proposed-booking}
     {:name :action/stripe-create-payment-intent}],
    :from :state/enquiry,
    :to :state/pending-payment}
