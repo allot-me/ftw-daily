@@ -54,7 +54,6 @@ const FieldCheckboxComponent = props => {
     type: 'checkbox',
     ...rest,
   };
-
   const successColorVariantMaybe = useSuccessColor
     ? {
         checkedClassName: css.checkedSuccess,

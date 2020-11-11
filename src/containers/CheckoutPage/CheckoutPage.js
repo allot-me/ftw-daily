@@ -220,8 +220,9 @@ export class CheckoutPageComponent extends Component {
       message,
       paymentIntent,
       selectedPaymentMethod,
-      saveAfterOnetimePayment,
     } = handlePaymentParams;
+    // We always save the card, because this ensures a customer is created in Stripe
+    const saveAfterOnetimePayment = true
     const storedTx = ensureTransaction(pageData.transaction);
 
     const ensuredCurrentUser = ensureCurrentUser(currentUser);

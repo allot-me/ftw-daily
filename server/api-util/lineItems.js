@@ -40,7 +40,7 @@ exports.transactionLineItems = (listing, _) => {
    *
    * By default BookingBreakdown prints line items inside LineItemUnknownItemsMaybe if the lineItem code is not recognized. */
 
-  // We set quantity as one, as we only charge for the first month
+  // for allotme - We set quantity as one, as we only charge for the first month, and we calculate comission manually
 
   const booking = {
     code: bookingUnitType,

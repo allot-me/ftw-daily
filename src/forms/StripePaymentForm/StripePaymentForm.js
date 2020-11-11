@@ -98,15 +98,6 @@ const OneTimePaymentWithCardElement = props => {
       <div className={cardClasses} id={`${formId}-card`} ref={handleStripeElementRef} />
       {hasCardError ? <span className={css.error}>{error}</span> : null}
       <div className={css.saveForLaterUse}>
-        <FieldCheckbox
-          className={css.saveForLaterUseCheckbox}
-          textClassName={css.saveForLaterUseLabel}
-          id="saveAfterOnetimePayment"
-          name="saveAfterOnetimePayment"
-          label={labelText}
-          value="saveAfterOnetimePayment"
-          useSuccessColor
-        />
         <span className={css.saveForLaterUseLegalInfo}>
           <FormattedMessage id="StripePaymentForm.saveforLaterUseLegalInfo" />
         </span>
@@ -497,7 +488,6 @@ class StripePaymentForm extends Component {
 
   render() {
     const { onSubmit, ...rest } = this.props;
-    console.log(this.props)
     return <FinalForm onSubmit={this.handleSubmit} {...rest} render={this.paymentForm} />;
   }
 }
