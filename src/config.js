@@ -81,10 +81,10 @@ const sentryDsn = process.env.REACT_APP_SENTRY_DSN;
 const usingSSL = process.env.REACT_APP_SHARETRIBE_USING_SSL === 'true';
 
 // Address information is used in SEO schema for Organization (http://schema.org/PostalAddress)
-const addressCountry = 'FI';
-const addressRegion = 'Helsinki';
-const postalCode = '00100';
-const streetAddress = 'Bulevardi 14';
+const addressCountry = 'UK';
+const addressRegion = 'London';
+const postalCode = 'SW8';
+const streetAddress = '';
 
 // Canonical root url is needed in social media sharing and SEO optimization purposes.
 const canonicalRootURL = process.env.REACT_APP_CANONICAL_ROOT_URL;
@@ -104,6 +104,10 @@ const siteFacebookPage = 'https://www.facebook.com/allotme/';
 const siteLinkedInPage = 'https://www.linkedin.com/company/allotme/about/'
 
 const siteYouTubePage = 'https://www.youtube.com/channel/UCiN2QicnaXzmToZV6L_vFig'
+
+const allotMeAbout = 'https://www.allotme.co.uk/home'
+const allotMeGrowing = 'https://www.allotme.co.uk/growing'
+const allotMeMailTo = 'mailto:info@allotme.co.uk'
 
 // Facebook counts shares with app or page associated by this id
 // Currently it is unset, but you can read more about fb:app_id from
@@ -225,6 +229,9 @@ const config = {
   siteTwitterHandle,
   siteLinkedInPage,
   siteYouTubePage,
+  allotMeAbout,
+  allotMeGrowing,
+  allotMeMailTo,
   facebookAppId,
   sentryDsn,
   usingSSL,

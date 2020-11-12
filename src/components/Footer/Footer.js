@@ -84,7 +84,7 @@ const Footer = props => {
   const { rootClassName, className, intl } = props;
   const socialMediaLinks = renderSocialMediaLinks(intl);
   const classes = classNames(rootClassName || css.root, className);
-
+  const { allotMeAbout, allotMeGrowing, allotMeMailTo } = config
   return (
     <div className={classes}>
       <div className={css.topBorderWrapper}>
@@ -95,60 +95,24 @@ const Footer = props => {
               <NamedLink name="LandingPage" className={css.logoLink}>
                 <Logo format="desktop" className={css.logo} />
               </NamedLink>
-              <div className={css.organizationInfo}>
-                <p className={css.organizationDescription}>
-                  <FormattedMessage id="Footer.organizationDescription" />
-                </p>
-                <p className={css.organizationCopyright}>
-                  <NamedLink name="LandingPage" className={css.copyrightLink}>
-                    <FormattedMessage id="Footer.copyright" />
-                  </NamedLink>
-                </p>
-              </div>
             </div>
             <div className={css.infoLinks}>
               <ul className={css.list}>
                 <li className={css.listItem}>
-                  <NamedLink name="NewListingPage" className={css.link}>
-                    <FormattedMessage id="Footer.toNewListingPage" />
-                  </NamedLink>
-                </li>
-                <li className={css.listItem}>
-                  <NamedLink name="AboutPage" className={css.link}>
+                  <ExternalLink key='allotMeAbout' href={allotMeAbout} name="AboutPage" className={css.link}>
                     <FormattedMessage id="Footer.toAboutPage" />
-                  </NamedLink>
+                  </ExternalLink>
                 </li>
                 <li className={css.listItem}>
-                  <NamedLink name="LandingPage" className={css.link}>
-                    <FormattedMessage id="Footer.toFAQPage" />
-                  </NamedLink>
+                  <ExternalLink key='allotMeGrowing' href={allotMeGrowing} name="GrowingPage" className={css.link}>
+                    <FormattedMessage id="Footer.toGrowingPage" />
+                  </ExternalLink>
                 </li>
                 <li className={css.listItem}>
-                  <NamedLink name="LandingPage" className={css.link}>
-                    <FormattedMessage id="Footer.toHelpPage" />
-                  </NamedLink>
-                </li>
-                <li className={css.listItem}>
-                  <NamedLink name="AboutPage" to={{ hash: '#contact' }} className={css.link}>
+                  <ExternalLink key="allotMeContact" href={allotMeMailTo} className={css.link}>
                     <FormattedMessage id="Footer.toContactPage" />
-                  </NamedLink>
+                  </ExternalLink>
                 </li>
-              </ul>
-            </div>
-            <div className={css.searches}>
-              <ul className={css.list}>
-                {/* <li className={css.listItem}>
-                  <NamedLink
-                    name="SearchPage"
-                    to={{
-                      search:
-                        '?address=Helsinki%2C%20Finland&bounds=60.2978389%2C25.254484899999966%2C59.9224887%2C24.782875800000056&origin=60.16985569999999%2C24.93837910000002',
-                    }}
-                    className={css.link}
-                  >
-                    <FormattedMessage id="Footer.searchHelsinki" />
-                  </NamedLink>
-                </li> */}
               </ul>
             </div>
             <div className={css.extraLinks}>
