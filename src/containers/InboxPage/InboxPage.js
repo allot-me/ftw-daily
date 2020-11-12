@@ -225,13 +225,6 @@ export const InboxItem = props => {
           <div className={classNames(css.itemUsername, stateData.nameClassName)}>
             {otherUserDisplayName}
           </div>
-          <BookingInfoMaybe
-            bookingClassName={stateData.bookingClassName}
-            intl={intl}
-            isOrder={isOrder}
-            tx={tx}
-            unitType={unitType}
-          />
         </div>
         <div className={css.itemState}>
           <div className={classNames(css.stateName, stateData.stateClassName)}>
