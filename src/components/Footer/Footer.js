@@ -106,51 +106,6 @@ const Footer = props => {
                 </p>
               </div>
             </div>
-            <div className={css.infoLinks}>
-              <ul className={css.list}>
-                <li className={css.listItem}>
-                  <NamedLink name="NewListingPage" className={css.link}>
-                    <FormattedMessage id="Footer.toNewListingPage" />
-                  </NamedLink>
-                </li>
-                <li className={css.listItem}>
-                  <NamedLink name="AboutPage" className={css.link}>
-                    <FormattedMessage id="Footer.toAboutPage" />
-                  </NamedLink>
-                </li>
-                <li className={css.listItem}>
-                  <NamedLink name="LandingPage" className={css.link}>
-                    <FormattedMessage id="Footer.toFAQPage" />
-                  </NamedLink>
-                </li>
-                <li className={css.listItem}>
-                  <NamedLink name="LandingPage" className={css.link}>
-                    <FormattedMessage id="Footer.toHelpPage" />
-                  </NamedLink>
-                </li>
-                <li className={css.listItem}>
-                  <NamedLink name="AboutPage" to={{ hash: '#contact' }} className={css.link}>
-                    <FormattedMessage id="Footer.toContactPage" />
-                  </NamedLink>
-                </li>
-              </ul>
-            </div>
-            <div className={css.searches}>
-              <ul className={css.list}>
-                {/* <li className={css.listItem}>
-                  <NamedLink
-                    name="SearchPage"
-                    to={{
-                      search:
-                        '?address=Helsinki%2C%20Finland&bounds=60.2978389%2C25.254484899999966%2C59.9224887%2C24.782875800000056&origin=60.16985569999999%2C24.93837910000002',
-                    }}
-                    className={css.link}
-                  >
-                    <FormattedMessage id="Footer.searchHelsinki" />
-                  </NamedLink>
-                </li> */}
-              </ul>
-            </div>
             <div className={css.extraLinks}>
               <div className={css.someLinks}>{socialMediaLinks}</div>
               <div className={css.legalMatters}>
