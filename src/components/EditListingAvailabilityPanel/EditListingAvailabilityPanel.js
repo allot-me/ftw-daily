@@ -28,7 +28,7 @@ const EditListingDescriptionPanel = props => {
 
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
-  const { availabililty } = currentListing.attributes.publicData
+  const { availability } = currentListing.attributes.publicData
 
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const panelTitle = isPublished ? (
@@ -46,7 +46,7 @@ const EditListingDescriptionPanel = props => {
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingAvailabilityForm
         className={css.form}
-        initialValues={{ availabililty }}
+        initialValues={{ availability }}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
           const { availability } = values;
