@@ -210,6 +210,10 @@ export const acceptOrDeclineInProgress = state => {
   return state.TransactionPage.acceptInProgress || state.TransactionPage.declineInProgress;
 };
 
+const getListingId = (state, id) => {
+  return state.marketplaceData.entities.transaction[id.uuid].relationships.listing.data.id.uuid
+}
+
 // ================ Action creators ================ //
 export const setInitialValues = initialValues => ({
   type: SET_INITIAL_VALUES,
@@ -348,7 +352,18 @@ export const fetchTransaction = (id, txRole) => (dispatch, getState, sdk) => {
     });
 };
 
-export const acceptSale = id => (dispatch, getState, sdk) => {
+const updateAvailability = (listingId, availability, sdk) => {
+  var data = {
+    id: listingId,
+    publicData: {
+      availability: availability
+    }
+  }
+  return sdk.ownListings.update(data)
+}
+
+
+const acceptSaleTransaction = id => (dispatch, getState, sdk) => {
   if (acceptOrDeclineInProgress(getState())) {
     return Promise.reject(new Error('Accept or decline already in progress'));
   }
@@ -364,6 +379,8 @@ export const acceptSale = id => (dispatch, getState, sdk) => {
     })
     .catch(e => {
       dispatch(acceptSaleError(storableError(e)));
+      var listingId = getListingId(getState(), id)
+      updateAvailability(listingId, 'available', sdk)
       log.error(e, 'accept-sale-failed', {
         txId: id,
         transition: TRANSITION_ACCEPT,
@@ -371,6 +388,21 @@ export const acceptSale = id => (dispatch, getState, sdk) => {
       throw e;
     });
 };
+
+export const acceptSale = id => (dispatch, getState, sdk)=>{
+  const state = getState()
+  const listingId = getListingId(state, id)
+  updateAvailability(listingId, 'unavailable', sdk).then(() => {
+    dispatch(acceptSaleTransaction(id))
+  }).catch(e => {
+      dispatch(acceptSaleError(storableError(e)));
+      log.error(e, 'accept-sale-failed', {
+        txId: id,
+        transition: TRANSITION_ACCEPT,
+      });
+      throw e;
+  })
+}
 
 export const declineSale = id => (dispatch, getState, sdk) => {
   if (acceptOrDeclineInProgress(getState())) {

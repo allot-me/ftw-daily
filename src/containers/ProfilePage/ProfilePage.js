@@ -181,6 +181,7 @@ export class ProfilePageComponent extends Component {
       </div>
     );
 
+    var showReviews = false 
     const mainContent = (
       <div>
         <h1 className={css.desktopHeading}>
@@ -204,6 +205,7 @@ export class ProfilePageComponent extends Component {
             </ul>
           </div>
         ) : null}
+        { showReviews ? isMobileLayout ? mobileReviews : desktopReviews: null}
       </div>
     );
 
