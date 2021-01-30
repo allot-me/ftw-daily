@@ -12,7 +12,8 @@
     {{#with transaction}}
     <h1>Please respond to a request by {{customer.display-name}}</h1>
 
-    <p>Good news! {{customer.display-name}} just requested to book {{listing.title}}. Here's the breakdown:</p>
+    <p>Good news! {{customer.display-name}} just requested to book {{listing.title}}. Here's the breakdown.</p>
+
     <table>
       <thead>
         <tr>
@@ -27,9 +28,15 @@
               <td>Price per month</td>
               <td style="text-align: right; padding-left: 20px">{{> format-money money=unit-price}}</td>
             </tr>
+            <tr>
+              <th style="text-align: left;">Subtotal</th>
+              <th style="text-align: right; padding-left: 20px">{{> format-money money=line-total}}</th>
+            </tr>
+          {{/eq}}
+
           {{#eq "line-item/provider-commission" code}}
             <tr>
-              <td>{{marketplace.name}} fee per month</td>
+              <td>{{marketplace.name}} fee</td>
               <td style="text-align: right; padding-left: 20px;">{{> format-money money=line-total}}</td>
             </tr>
           {{/eq}}
@@ -38,13 +45,13 @@
       </tbody>
       <tfoot>
         <tr>
-          <th style="text-align: left;">You earn per month</th>
+          <th style="text-align: left;">You earn</th>
           <th style="text-align: left; padding-left: 20px;">{{> format-money money=payout-total}}</th>
         </tr>
       </tfoot>
     </table>
 
-    <p>You need to accept the request by {{> format-date date=delayed-transition.run-at}}. Otherwise the request will expire. You can also choose to decline the request.</p>
+    <p>You need to accept the request by {{> format-date date=delayed-transition.run-at}}. Otherwise the request will be expired.</p>
 
     <p><a href="{{marketplace.url}}/sale/{{url-encode id}}/details">Accept or decline the booking</a></p>
 

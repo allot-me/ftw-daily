@@ -1,87 +1,26 @@
 # Sharetribe Flex Template for Web
+# Allotme sharetribe front end
 
-[![CircleCI](https://circleci.com/gh/sharetribe/ftw-daily.svg?style=svg)](https://circleci.com/gh/sharetribe/ftw-daily)
+This is a front end application for Allotme, based on the sharetribe daily template.
 
-This is a template web application for a Sharetribe Flex marketplace ready to be extended and
-customized. It is based on an application bootstrapped with
-[create-react-app](https://github.com/facebookincubator/create-react-app) with some additions,
-namely server side rendering and a custom CSS setup.
+To run the application locally, install the requirements using `yarn` and then use `yarn run dev`. 
 
-> Note: We also have [FTW-hourly](https://github.com/sharetribe/ftw-hourly) for time-based
-> processes. If you are taking time-based booking process into use, you should consider using it
-> instead. You can read more from the related
-> [Flex Docs article](https://www.sharetribe.com/docs/background/time-based-template)
+### Booking
 
-## Quick start
+Other applications using sharetribe have resources that can be booked for a certain time period, after which they become available to be booked again (e.g. a room in a house like Airbnb). Allotme works by creating a booking between a host and a greenfinger that is only ended when one party decide for it to end. 
 
-If you just want to get the app running quickly to test it out, first install
-[Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/), and follow along:
+It isn't possible to use the sharetribe transaction and booking API with this limitation, as bookings must have a start and an end date and must be shorter than a year.
 
-```sh
-git clone git@github.com:sharetribe/ftw-daily.git      # clone this repository
-cd ftw-daily/                                          # change to the cloned directory
-yarn install                                                   # install dependencies
-yarn run config                                                # add the mandatory env vars to your local config
-yarn run dev                                                   # start the dev server, this will open a browser in localhost:3000
-```
+As such, we do the following: 
 
-You can also follow along the
-[Getting started with FTW](https://www.sharetribe.com/docs/tutorials/getting-started-with-ftw/)
-tutorial in the [Flex Docs website](https://www.sharetribe.com/docs/).
+- When a booking is requested, we create a booking in sharetribe which will last for 1 week, and will start in 1 week's time.
+- We pass payment information to Stripe, but no payment will be taken. It has to be managed manually using the Stripe dashboard.
+- We notify how much the booking will cost per month via email
+- When the booking is accepted by the host, we toggle the availiablity of the site to 'unavailable'.
+- If a booking is rejected by the host, then the availability of the site stays 'available'.
 
-For more information of the configuration, see the
-[FTW Environment configuration variables](https://www.sharetribe.com/docs/references/ftw-env/)
-reference in Flex Docs.
+Within the [flex console](https://flex-console.sharetribe.com/o/allotme3/m/allotme3-test/users) you can see 'Transactions'. This lists all the states of current transactions. This shows you the date at which the booking was accepted.
 
-### For Windows users
+### Process
 
-Change `export` to `set` in the package.json file if you're using Windows/DOS. You need to do the
-change to "dev" and "dev-sever" commands.
-
-```
-"dev": "yarn run config-check&&set NODE_ENV=development REACT_APP_DEV_API_SERVER_PORT=3500&&concurrently --kill-others \"yarn run dev-frontend\" \"yarn run dev-backend\""
-```
-
-```
-"dev-server": "set NODE_ENV=development PORT=4000 REACT_APP_CANONICAL_ROOT_URL=http://localhost:4000&&yarn run build&&nodemon --watch server server/index.js"
-```
-
-We strongly recommend installing
-[Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about), if you are
-developing on Windows. These templates are made for Unix-like web services which is the most common
-environment type on host-services for web apps. Also, Flex Docs uses Unix-like commands in articles
-instead of DOS commands.
-
-## Getting started with your own customization
-
-If you want to build your own Flex marketplace by customizing the template application, see the
-[How to Customize FTW](https://www.sharetribe.com/docs/guides/how-to-customize-ftw/) guide in Flex
-Docs.
-
-## Deploying to Heroku
-
-**Note:** Remember to fork the repository before deploying the application. Connecting your own
-Github repository to Heroku will make manual deploys easier.
-
-See the
-[How to deploy FTW to production](https://www.sharetribe.com/docs/guides/how-to-deploy-ftw-to-production/)
-guide in Flex Docs for more information.
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-## Documentation
-
-See the Flex Docs site: https://www.sharetribe.com/docs/
-
-See also the [docs/](docs/) directory for some additional internal documentation.
-
-## Get help – join Sharetribe Flex Developer Slack channel
-
-If you have any questions about development, the best place to ask them is the Flex Developer Slack
-channel at https://www.sharetribe.com/flex-slack
-
-## License
-
-This project is licensed under the terms of the Apache-2.0 license.
-
-See [LICENSE](LICENSE)
+The default process has been heavily editied in order to support the above booking process. Use the flex-cli to download, edit and push the process and associated email templates.
