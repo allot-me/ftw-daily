@@ -40,7 +40,7 @@
   border-style: solid;
   border-color: var(--marketplaceColor);
   border-width: 2px;
-  border-radius: 6px;
+  border-radius: 8px;
   box-shadow: var(--boxShadowPopupLight);
 
   /* Dimensions */
@@ -80,8 +80,8 @@
 
 .caret {
   /* Caret / arrow dimensions and position */
-  width: 6px;
-  height: 6px;
+  width: 9px;
+  height: 9px;
   position: absolute;
   bottom: -3px;
   left: 50%;
