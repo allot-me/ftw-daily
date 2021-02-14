@@ -114,7 +114,7 @@ export const moneySubUnitAmountAtLeast = (message, minValue) => value => {
   return value instanceof Money && value.amount >= minValue ? VALID : message;
 };
 
-const parseNum = str => {
+export const parseNum = str => {
   const num = Number.parseInt(str, 10);
   return Number.isNaN(num) ? null : num;
 };

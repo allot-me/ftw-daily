@@ -42,16 +42,20 @@ export const ContactDetailsPageComponent = props => {
   const user = ensureCurrentUser(currentUser);
   const currentEmail = user.attributes.email || '';
   const protectedData = user.attributes.profile.protectedData || {};
+  const privateData = user.attributes.profile.privateData || {};
   const currentPhoneNumber = protectedData.phoneNumber || '';
+  const currentBankAccountNumber = privateData.bankAccountNumber || '';
+  const currentSortCode = privateData.sortCode || '';
+
   const contactInfoForm = user.id ? (
     <ContactDetailsForm
       className={css.form}
-      initialValues={{ email: currentEmail, phoneNumber: currentPhoneNumber }}
+      initialValues={{ email: currentEmail, phoneNumber: currentPhoneNumber, bankAccountNumber: currentBankAccountNumber, sortCode: currentSortCode}}
       saveEmailError={saveEmailError}
       savePhoneNumberError={savePhoneNumberError}
       currentUser={currentUser}
       onResendVerificationEmail={onResendVerificationEmail}
-      onSubmit={values => onSubmitContactDetails({ ...values, currentEmail, currentPhoneNumber })}
+      onSubmit={values => onSubmitContactDetails({ ...values, currentEmail, currentPhoneNumber, currentBankAccountNumber, currentSortCode })}
       onChange={onChange}
       inProgress={saveContactDetailsInProgress}
       ready={contactDetailsChanged}

@@ -13,7 +13,7 @@ import {
   isChangeEmailWrongPassword,
   isTooManyEmailVerificationRequestsError,
 } from '../../util/errors';
-import { FieldPhoneNumberInput, Form, PrimaryButton, FieldTextInput } from '../../components';
+import { FieldPhoneNumberInput, Form, PrimaryButton, FieldTextInput, } from '../../components';
 
 import css from './ContactDetailsForm.css';
 
@@ -63,7 +63,7 @@ class ContactDetailsFormComponent extends Component {
             sendVerificationEmailInProgress,
             values,
           } = fieldRenderProps;
-          const { email, phoneNumber } = values;
+          const { email, phoneNumber, bankAccountNumber, sortCode } = values;
 
           const user = ensureCurrentUser(currentUser);
 
@@ -92,6 +92,8 @@ class ContactDetailsFormComponent extends Component {
             id: 'ContactDetailsForm.emailInvalid',
           });
           const emailValid = validators.emailFormatValid(emailInvalidMessage);
+
+          const bankAccountPlaceHolder = 'Bank Account Number';
 
           const tooManyVerificationRequests = isTooManyEmailVerificationRequestsError(
             sendVerificationEmailError
@@ -188,6 +190,13 @@ class ContactDetailsFormComponent extends Component {
           });
           const phoneLabel = intl.formatMessage({ id: 'ContactDetailsForm.phoneLabel' });
 
+          // bankAccount
+          const privateData = profile.privateData || {}
+          const currentAccountNumber = privateData.bankAccountNumber;
+          const currentSortCode = privateData.sortCode;
+          const sortCodeChanged = currentSortCode !== sortCode;
+          const accountNumberChanged = currentAccountNumber !== bankAccountNumber;
+
           // password
           const passwordLabel = intl.formatMessage({
             id: 'ContactDetailsForm.passwordLabel',
@@ -263,7 +272,7 @@ class ContactDetailsFormComponent extends Component {
             invalid ||
             pristineSinceLastSubmit ||
             inProgress ||
-            !(emailChanged || phoneNumberChanged);
+            !(emailChanged || phoneNumberChanged || accountNumberChanged || sortCodeChanged);
 
           return (
             <Form
@@ -290,6 +299,22 @@ class ContactDetailsFormComponent extends Component {
                   id={formId ? `${formId}.phoneNumber` : 'phoneNumber'}
                   label={phoneLabel}
                   placeholder={phonePlaceholder}
+                />
+              </div>
+              <div>
+                <FieldTextInput
+                  type="bankAccountNumber"
+                  name="bankAccountNumber"
+                  id={formId ? `${formId}.bankAccountNumber` : 'bankAccountNumber'}
+                  label='Bank Acount Number'
+                  placeholder={bankAccountPlaceHolder}
+                />
+                <FieldTextInput
+                  type="sortCode"
+                  name="sortCode"
+                  id={formId ? `${formId}.sortCode` : 'sortCode'}
+                  label='Sort Code'
+                  placeholder='Sort Code'
                 />
               </div>
 
