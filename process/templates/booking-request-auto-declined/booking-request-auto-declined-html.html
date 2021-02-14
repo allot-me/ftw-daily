@@ -1,20 +1,22 @@
-
-{{~#*inline "format-date"~}}
+<p style="font-family:arial; color:#737373; font-size:15">{{~#*inline "format-date"~}}
 {{date date format="MMM d, YYYY" tz="Etc/UTC"}}
 {{~/inline~}}
 
 <html>
   <body>
-    <h1>Your booking request has expired.</h1>
+    <h1 style="font-family:arial black; color:#86b300; font-size:30" >Your booking request has expired.</h1>
 
-    {{#with transaction}}
-    <p>Unfortunately {{provider.display-name}} didn't respond to your booking request for {{listing.title}} on time, so the request has expired. You have not been billed.</p>
-    {{/with}}
+    <p style="font-family:arial; color:#737373; font-size:15">{{#with transaction}}
+    <p style="font-family:arial bold; color:#737373; font-size:15">Unfortunately {{provider.display-name}} didn't respond to your booking request for {{listing.title}} on time, so the request has expired. You have not been billed.</p>
+    <p style="font-family:arial; color:#737373; font-size:15">{{/with}}
 
-    <p><a href="{{marketplace.url}}">Try to book something else instead</a></p>
+    <p style="font-family:arial bold; color:#737373; font-size:16"><a href="{{marketplace.url}}">Try to book something else instead</a></p>
+    <br>
 
     <hr />
-
-    <p>You have received this email notification because you are a member of {{marketplace.name}}. If you no longer wish to receive these emails, please contact {{marketplace.name}} team.</p>
+<br>
+    <p style="font-family:arial; color:#737373; font-size:15">You have received this email notification because you are a member of {{marketplace.name}}. If you no longer wish to receive these emails, please contact {{marketplace.name}} team.</p>
   </body>
+<br><a href="https://www.allotme.co.uk" target="_blank"><img src="https://static.wixstatic.com/media/84753e_729a2997d4e84ec99edec1370ebb5f68~mv2.png/v1/fill/w_320,h_72,al_c,usm_0.66_1.00_0.01/logo%20%26text%203_0.png" alt="AllotMe logo" width="140" height="32"></a>
 </html>
+
