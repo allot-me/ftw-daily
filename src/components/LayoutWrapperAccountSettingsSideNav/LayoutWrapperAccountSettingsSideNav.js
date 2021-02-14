@@ -60,14 +60,6 @@ const LayoutWrapperAccountSettingsSideNavComponent = props => {
       },
     },
     {
-      text: <FormattedMessage id="LayoutWrapperAccountSettingsSideNav.paymentsTabTitle" />,
-      selected: currentTab === 'StripePayoutPage',
-      id: 'StripePayoutPageTab',
-      linkProps: {
-        name: 'StripePayoutPage',
-      },
-    },
-    {
       text: <FormattedMessage id="LayoutWrapperAccountSettingsSideNav.paymentMethodsTabTitle" />,
       selected: currentTab === 'PaymentMethodsPage',
       id: 'PaymentMethodsPageTab',
